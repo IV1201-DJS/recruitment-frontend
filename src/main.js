@@ -27,7 +27,7 @@ if (!localStorage.locale) {
 }
 
 const httpLink = new HttpLink({
-  uri: `${process.process.BACKEND}/graphql`
+  uri: `${process.env.BACKEND}/graphql`
 })
 
 const authLink = setContext((_, { headers }) => {
