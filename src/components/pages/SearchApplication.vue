@@ -2,25 +2,48 @@
   <v-container fluid>
     <competence-search />
 
-    <div>
-    </div>
+    <user-application v-for="(user, key) in Applications" :user="user" :key="key" />
   </v-container>
 </template>
 <script>
+import gql from 'graphql-tag'
+
 import CompetenceSearch from './subpages/CompetenceSearch'
+import UserApplication from './subpages/UserApplication'
 
 export default {
-  components: { CompetenceSearch },
+  components: { CompetenceSearch, UserApplication },
   data () {
     return {
-      users: []
+      competences: [''],
+      Applications: []
     }
   },
   created () {
     this.$on('updateCriteria', (competences) => {
-      console.log('criteria updated')
-      console.log(competences)
+      this.competences = competences
     })
+  },
+  apollo: {
+    Applications: {
+      query: gql`query ($competence_name: String!) {
+        Applications (competence_name: $competence_name) {
+          firstname
+          lastname
+          email
+          ssn
+          competences {
+            name
+            experience_years
+          }
+        }
+      }`,
+      variables () {
+        return {
+          competence_name: this.competences[0]
+        }
+      }
+    }
   }
 }
 </script>
