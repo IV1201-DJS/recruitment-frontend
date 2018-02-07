@@ -10,31 +10,31 @@
           <v-container fluid>
             <v-text-field
               label="Username"
-              :value="User.username"
+              :value="CurrentUser.username"
               disabled
             />
 
             <v-text-field
               label="First name"
-              :value="User.firstname"
+              :value="CurrentUser.firstname"
               disabled
             />
 
             <v-text-field
               label="Last name"
-              :value="User.lastname"
+              :value="CurrentUser.lastname"
               disabled
             />
 
             <v-text-field
               label="Email"
-              :value="User.email"
+              :value="CurrentUser.email"
               disabled
             />
 
             <v-text-field
               label="SSN"
-              :value="User.ssn"
+              :value="CurrentUser.ssn"
               disabled
             />
           </v-container>
@@ -90,8 +90,7 @@ export default {
   data () {
     return {
       e6: 1,
-      User: {},
-      userId: 1,
+      CurrentUser: {},
       loading: false,
       items: [],
       search: null,
@@ -102,7 +101,7 @@ export default {
   },
   apollo: {
     Competences: {
-      query: gql`query ($name: name) {
+      query: gql`query ($name: String!) {
         Competences (name: $name) {
           id
           name
@@ -114,9 +113,9 @@ export default {
         }
       }
     },
-    User: {
-      query: gql`query ($id: ID) {
-        User (id: $id) {
+    CurrentUser: {
+      query: gql`query {
+        CurrentUser {
           username
           firstname
           lastname
@@ -142,10 +141,18 @@ export default {
     }
   },
   methods: {
-    querySelections (v) {
+    querySelections (query) {
+      this.competenceQuery = query
       this.loading = true
-      // Simulated ajax query
+
       this.items = this.Competences
+        .map(item => item.name)
+        .filter(e => {
+          return (e || '').toLowerCase().indexOf((query || '').toLowerCase())
+        })
+
+      console.log(this.items.length)
+
       this.loading = false
     }
   }
