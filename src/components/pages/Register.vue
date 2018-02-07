@@ -136,16 +136,6 @@ export default {
   },
   methods: {
     register () {
-      localStorage.locale = 'sv'
-
-      console.log('Register clicked!')
-      // Native form submission is not yet supported
-      // axios.post('/api/submit', {
-      //   name: this.name,
-      //   email: this.email,
-      //   select: this.select,
-      //   checkbox: this.checkbox
-      // })
     },
     allowedDates (date) {
       return new Date(date) < new Date()

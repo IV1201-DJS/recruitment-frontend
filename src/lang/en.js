@@ -8,9 +8,15 @@ export default {
     competence: 'Competence',
     competences: 'Competences'
   },
+  navbar: {
+    brandName: 'Recruitment application',
+    registerApplication: 'Register application',
+    profile: 'Profile',
+    applications: 'Applications',
+    logout: 'Logout'
+  },
   message: {
     passwordConfirmation: 'Password confirmation',
-    emailOrUsername: 'E-mail or username',
     login: 'Login',
     register: 'Register'
   }

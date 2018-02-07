@@ -8,9 +8,15 @@ export default {
     competence: 'Kompetens',
     competences: 'Kompetenser'
   },
+  navbar: {
+    brandName: 'Rekryteringsapplikation',
+    registerApplication: 'Jobbansökan',
+    profile: 'Profil',
+    applications: 'Rekrytering',
+    logout: 'Logga ut'
+  },
   message: {
     passwordConfirmation: 'Lösenordsbekräftelse',
-    emailOrUsername: 'E-mail eller användarnamn',
     login: 'Logga in',
     register: 'Registrera'
   }
