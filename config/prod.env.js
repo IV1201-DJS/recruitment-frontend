@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  BACKEND: process.env.BACKEND || ''
+  BACKEND: JSON.stringify(process.env.BACKEND) || '""'
 }
