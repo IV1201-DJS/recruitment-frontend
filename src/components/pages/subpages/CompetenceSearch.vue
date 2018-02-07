@@ -12,7 +12,7 @@
               cache-items
               chips
               required
-              :items="items"
+              :items="items.map(item => item.name)"
               :rules="[() => select.length > 0 || 'You must choose at least one competence']"
               :search-input.sync="search"
               v-model="select"
@@ -63,10 +63,11 @@ export default {
       this.loading = true
 
       this.items = this.Competences
-        .map(item => item.name)
         .filter(e => {
-          return (e || '').toLowerCase().indexOf((query || '').toLowerCase())
+          return (e.name || '').toLowerCase().indexOf((query || '').toLowerCase())
         })
+
+      this.$parent.$emit('updateCriteria', this.items)
 
       this.loading = false
     }
