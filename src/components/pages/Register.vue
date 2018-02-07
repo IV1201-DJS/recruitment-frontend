@@ -101,6 +101,8 @@
   </v-container>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data: () => ({
     e1: true,
@@ -132,13 +134,23 @@ export default {
     },
     passwordConfirmationLocale () {
       return this.$t('message.passwordConfirmation')
-    }
+    },
+    ...mapState([
+      'loggedIn'
+    ])
   },
   methods: {
     register () {
     },
     allowedDates (date) {
       return new Date(date) < new Date()
+    }
+  },
+  watch: {
+    loggedIn: function (newState) {
+      const routerPath = this.$store.state.loginRedirect
+      this.$store.commit('updateLoginRedirect', '/')
+      this.$router.push(routerPath)
     }
   }
 }

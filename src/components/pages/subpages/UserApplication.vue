@@ -9,7 +9,7 @@
 
           <v-card-text>
             <h3>email: {{ user.email }}</h3>
-            <h3>ssn: {{ user.username }}</h3>
+            <h3>ssn: {{ user.ssn }}</h3>
 
             <h3>Competences:</h3>
             <v-list two-line>

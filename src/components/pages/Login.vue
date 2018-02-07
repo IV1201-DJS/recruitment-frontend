@@ -37,6 +37,8 @@
   </v-container>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data: () => ({
     e1: true,
@@ -54,19 +56,24 @@ export default {
     },
     passwordLocale () {
       return this.$t('user.password')
+    },
+    ...mapState([
+      'loggedIn'
+    ])
+  },
+  watch: {
+    loggedIn: function (newState) {
+      const routerPath = this.$store.state.loginRedirect
+      this.$store.commit('updateLoginRedirect', '/')
+      this.$router.push(routerPath)
     }
   },
   methods: {
     async login () {
-      const loggedIn = await this.$store.dispatch('login', {
+      await this.$store.dispatch('login', {
         username: this.username,
         password: this.password
       })
-
-      // The user has sucessfully logged in
-      if (!loggedIn) return
-
-      window.history.length > 2 ? this.$router.go(-1) : this.$router.push('/')
     }
   }
 }

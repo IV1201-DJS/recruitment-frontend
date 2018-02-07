@@ -36,6 +36,11 @@ const errorLink = onError(({ networkError }) => {
   if (networkError.statusCode === 401) {
     // The user is not logged in -> update the store
     store.commit('updateLoginStatus', false)
+    // Save redirect router path
+    const path = router.currentRoute.fullPath
+    if (path !== '/login' && path !== '/register') {
+      store.commit('updateLoginRedirect', path)
+    }
 
     router.push('/login')
   }

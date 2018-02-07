@@ -7,11 +7,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loggedIn: false
+    loggedIn: false,
+    loginRedirect: '/'
   },
   mutations: {
     updateLoginStatus (state, loggedIn) {
       state.loggedIn = loggedIn
+    },
+    updateLoginRedirect (state, loginRedirect) {
+      state.loginRedirect = loginRedirect
     }
   },
   actions: {
