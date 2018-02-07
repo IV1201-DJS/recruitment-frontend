@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <v-container>
     <competence-search />
-  </div>
+  </v-container>
 </template>
 <script>
 import CompetenceSearch from './subpages/CompetenceSearch'

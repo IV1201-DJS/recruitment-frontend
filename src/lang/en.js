@@ -10,7 +10,6 @@ export default {
   },
   message: {
     passwordConfirmation: 'Password confirmation',
-    emailOrUsername: 'E-mail or username',
     login: 'Login',
     register: 'Register'
   }

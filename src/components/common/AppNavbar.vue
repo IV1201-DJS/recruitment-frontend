@@ -1,7 +1,7 @@
 <template>
   <v-toolbar>
     <v-toolbar-title>Recruitment application</v-toolbar-title>
-    <v-spacer></v-spacer>
+    <v-spacer />
 
     <v-toolbar-side-icon class="hidden-md-and-up" />
 

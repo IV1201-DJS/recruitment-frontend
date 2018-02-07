@@ -10,7 +10,7 @@ export default new Vuex.Store({
     loggedIn: false
   },
   mutations: {
-    updateLoggedInStatus (state, loggedIn) {
+    updateLoginStatus (state, loggedIn) {
       state.loggedIn = loggedIn
     }
   },
@@ -23,7 +23,7 @@ export default new Vuex.Store({
         })
 
         localStorage.setItem('token', token)
-        commit('updateLoggedInStatus', true)
+        commit('updateLoginStatus', true)
 
         return true
       } catch (e) {

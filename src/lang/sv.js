@@ -10,7 +10,6 @@ export default {
   },
   message: {
     passwordConfirmation: 'Lösenordsbekräftelse',
-    emailOrUsername: 'E-mail eller användarnamn',
     login: 'Logga in',
     register: 'Registrera'
   }

@@ -25,6 +25,7 @@
                 :append-icon="e1 ? 'visibility' : 'visibility_off'"
                 :append-icon-cb="() => (e1 = !e1)"
                 :type="e1 ? 'password' : 'text'"
+                @keyup.enter="login"
               />
 
               <v-btn color="primary" @click="login" v-t="'message.login'" />
@@ -57,13 +58,13 @@ export default {
   },
   methods: {
     async login () {
-      const res = await this.$store.dispatch('login', {
+      const loggedIn = await this.$store.dispatch('login', {
         username: this.username,
         password: this.password
       })
 
       // The user has sucessfully logged in
-      if (!res) return
+      if (!loggedIn) return
 
       window.history.length > 2 ? this.$router.go(-1) : this.$router.push('/')
     }
