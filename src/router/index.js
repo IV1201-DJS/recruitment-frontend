@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import JobApplication from '@/components/JobApplication'
+import RegisterApplication from '@/components/RegisterApplication'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import SearchApplication from '@/components/SearchApplication'
 import Profile from '@/components/Profile'
+import Transfer from '@/components/Transfer'
 
 Vue.use(Router)
 
@@ -13,11 +14,16 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'JobApplication',
-      component: JobApplication
+      name: 'Home',
+      component: Profile
     },
     {
-      path: '/search',
+      path: '/application/create',
+      name: 'RegisterApplication',
+      component: RegisterApplication
+    },
+    {
+      path: '/application/search',
       name: 'SearchApplication',
       component: SearchApplication
     },
@@ -25,6 +31,11 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/profile/transfer',
+      name: 'Transfer',
+      component: Transfer
     },
     {
       path: '/profile',
