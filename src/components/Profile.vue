@@ -13,9 +13,6 @@
 import gql from 'graphql-tag'
 
 export default {
-  data: () => ({
-    CurrentUser: undefined
-  }),
   apollo: {
     // Query with parameters
     CurrentUser: {

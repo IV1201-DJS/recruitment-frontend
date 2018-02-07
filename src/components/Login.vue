@@ -60,13 +60,13 @@ export default {
   methods: {
     async login () {
       try {
-        const res = await post('/api/login', {
+        const { token } = await post('/api/login', {
           username: this.emailOrUsername,
           password: this.password
         })
 
-        const { token } = res.data
         localStorage.setItem('token', token)
+        this.$router.push('/')
       } catch (e) {
         // TODO: show an error message to the user
         console.error(e)
