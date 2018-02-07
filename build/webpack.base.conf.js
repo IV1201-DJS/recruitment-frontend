@@ -25,9 +25,7 @@ module.exports = {
   entry: {
     app: './src/main.js'
   },
-  plugins: [
-    new Dotenv()
-  ],
+  plugins: process.env.NODE_ENV == 'development' ? [new Dotenv()] : [],
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
