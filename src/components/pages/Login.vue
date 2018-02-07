@@ -10,11 +10,11 @@
           <v-card-text>
             <v-form>
               <v-text-field
-                :label="emailOrUsernameLocale"
-                v-model="emailOrUsername"
-                :error-messages="errors.collect(emailOrUsernameLocale)"
+                :label="usernameLocale"
+                v-model="username"
+                :error-messages="errors.collect(usernameLocale)"
                 v-validate="'required'"
-                :data-vv-name="emailOrUsernameLocale"
+                :data-vv-name="usernameLocale"
               />
               <v-text-field
                 :label="passwordLocale"
@@ -36,12 +36,10 @@
   </v-container>
 </template>
 <script>
-import { post } from '@/tools/abstractions'
-
 export default {
   data: () => ({
     e1: true,
-    emailOrUsername: '',
+    username: '',
     password: ''
   }),
   filters: {
@@ -50,8 +48,8 @@ export default {
     }
   },
   computed: {
-    emailOrUsernameLocale () {
-      return this.$t('message.emailOrUsername')
+    usernameLocale () {
+      return this.$t('user.username')
     },
     passwordLocale () {
       return this.$t('user.password')
@@ -59,18 +57,15 @@ export default {
   },
   methods: {
     async login () {
-      try {
-        const { token } = await post('/api/login', {
-          username: this.emailOrUsername,
-          password: this.password
-        })
+      const res = await this.$store.dispatch('login', {
+        username: this.username,
+        password: this.password
+      })
 
-        localStorage.setItem('token', token)
-        this.$router.push('/')
-      } catch (e) {
-        // TODO: show an error message to the user
-        console.error(e)
-      }
+      // The user has sucessfully logged in
+      if (!res) return
+
+      window.history.length > 2 ? this.$router.go(-1) : this.$router.push('/')
     }
   }
 }
