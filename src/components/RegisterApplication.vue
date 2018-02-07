@@ -151,8 +151,6 @@ export default {
           return (e || '').toLowerCase().indexOf((query || '').toLowerCase())
         })
 
-      console.log(this.items.length)
-
       this.loading = false
     }
   }
