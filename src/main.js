@@ -38,6 +38,18 @@ const errorLink = onError(({ networkError }) => {
   }
 })
 
+const headerLang = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const lang = localStorage.locale
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      locale: lang
+    }
+  }
+})
+
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = localStorage.getItem('token')
@@ -55,6 +67,7 @@ const defaultClient = new ApolloClient({
   link: ApolloLink.from([
     errorLink,
     authLink,
+    headerLang,
     httpLink
   ]),
   // link: authLink.concat(httpLink, errorLink),
