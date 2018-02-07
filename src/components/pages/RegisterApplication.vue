@@ -48,29 +48,8 @@
     <v-stepper-step step="2" v-bind:complete="e6 > 2">Competences</v-stepper-step>
 
     <v-stepper-content step="2">
-      <v-card flat>
-        <v-card-text>
-          <v-container fluid>
-            <v-layout>
-              <v-flex>
-                <v-select
-                  :label="competencesLocale"
-                  autocomplete
-                  :loading="loading"
-                  multiple
-                  cache-items
-                  chips
-                  required
-                  :items="items"
-                  :rules="[() => select.length > 0 || 'You must choose at least one competence']"
-                  :search-input.sync="search"
-                  v-model="select"
-                ></v-select>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card-text>
-      </v-card>
+      <competence-search />
+
       <v-btn color="primary" @click.native="e6 = 3">Continue</v-btn>
       <v-btn flat>Cancel</v-btn>
     </v-stepper-content>
@@ -86,7 +65,10 @@
 <script>
 import gql from 'graphql-tag'
 
+import CompetenceSearch from './subpages/CompetenceSearch'
+
 export default {
+  components: { CompetenceSearch },
   data () {
     return {
       e6: 1,
@@ -94,25 +76,10 @@ export default {
       loading: false,
       items: [],
       search: null,
-      select: [],
-      Competences: [],
-      competenceQuery: ''
+      select: []
     }
   },
   apollo: {
-    Competences: {
-      query: gql`query ($name: String!) {
-        Competences (name: $name) {
-          id
-          name
-        }
-      }`,
-      variables () {
-        return {
-          name: this.competenceQuery
-        }
-      }
-    },
     CurrentUser: {
       query: gql`query {
         CurrentUser {
@@ -138,20 +105,6 @@ export default {
   watch: {
     search (val) {
       val && this.querySelections(val)
-    }
-  },
-  methods: {
-    querySelections (query) {
-      this.competenceQuery = query
-      this.loading = true
-
-      this.items = this.Competences
-        .map(item => item.name)
-        .filter(e => {
-          return (e || '').toLowerCase().indexOf((query || '').toLowerCase())
-        })
-
-      this.loading = false
     }
   }
 }

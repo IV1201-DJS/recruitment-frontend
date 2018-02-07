@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <navbar v-if="loggedIn" />
+    <navbar />
 
     <router-view></router-view>
   </v-app>
@@ -8,7 +8,7 @@
 <script>
 import gql from 'graphql-tag'
 
-import Navbar from './components/Navbar'
+import Navbar from './components/common/AppNavbar'
 
 export default {
   components: { Navbar },
@@ -18,6 +18,7 @@ export default {
     }
   },
   apollo: {
+    // Issue a query to check if the user is logged in
     CurrentUser: gql`query CurrentUser {
       CurrentUser {
         username

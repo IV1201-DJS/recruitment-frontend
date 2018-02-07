@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import RegisterApplication from '@/components/RegisterApplication'
-import Login from '@/components/Login'
-import Register from '@/components/Register'
-import SearchApplication from '@/components/SearchApplication'
-import Profile from '@/components/Profile'
-import Transfer from '@/components/Transfer'
+
+import RegisterApplication from '@/components/pages/RegisterApplication'
+import Login from '@/components/pages/Login'
+import Register from '@/components/pages/Register'
+import SearchApplication from '@/components/pages/SearchApplication'
+import Profile from '@/components/pages/Profile'
+import Transfer from '@/components/pages/Transfer'
 
 Vue.use(Router)
 
