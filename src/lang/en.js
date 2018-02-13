@@ -1,4 +1,11 @@
 export default {
+  login: {
+    required: {
+      username: 'The username is required',
+      password: 'The password is required'
+    },
+    invalid: 'The username or password was incorrect'
+  },
   user: {
     firstName: 'First name',
     lastName: 'Last name',

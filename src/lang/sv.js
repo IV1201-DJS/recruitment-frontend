@@ -1,4 +1,11 @@
 export default {
+  login: {
+    required: {
+      username: 'Du måste ange ett användarnamn',
+      password: 'Du måste ange ett lösenord'
+    },
+    invalid: 'Fel användarnamn eller lösenord'
+  },
   user: {
     firstName: 'Förnamn',
     lastName: 'Efternamn',

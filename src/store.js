@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
 
-import { post } from '@/tools/abstractions'
+import i18n from './lang/i18n'
 
 Vue.use(Vuex)
 
@@ -37,13 +38,25 @@ export default new Vuex.Store({
   actions: {
     async login ({ commit, dispatch }, authInfo) {
       try {
-        const { token } = await post('/api/login', authInfo)
+        const res = await axios.post('/api/login', authInfo)
+        const { token } = res.data
 
         localStorage.setItem('token', token)
         commit('updateLoginStatus', true)
       } catch (e) {
-        dispatch('displayError', e.message)
+        console.dir(e)
+        const { status, data } = e.response
+        switch (status) {
+          case 422: throw data.errors
+          case 401:
+            dispatch('displayError', i18n.t('login.invalid'))
+            break
+          default:
+            dispatch('displayError', data)
+        }
       }
+    },
+    async register ({ commit }, userInfo) {
     },
     displayError ({ commit }, message) {
       commit('updateSnackbar', {

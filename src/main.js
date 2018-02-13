@@ -3,9 +3,6 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import VeeValidate from 'vee-validate'
-import messagesSv from 'vee-validate/dist/locale/sv'
-import VueI18n from 'vue-i18n'
 
 // Apollo
 import { ApolloClient } from 'apollo-client'
@@ -15,11 +12,11 @@ import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
 import VueApollo from 'vue-apollo'
+import i18n from './lang/i18n'
 
 import App from './App'
 import router from './router'
 import store from './store'
-import messages from './lang/lang'
 
 Vue.config.productionTip = false
 
@@ -28,7 +25,7 @@ if (!localStorage.locale) {
   localStorage.locale = 'en'
 }
 
-let httpLink = new HttpLink({
+const httpLink = new HttpLink({
   uri: `${process.env.BACKEND}/graphql`
 })
 
@@ -95,19 +92,6 @@ let apolloProvider = new VueApollo({
 Vue.use(VueApollo)
 
 Vue.use(Vuetify)
-Vue.use(VeeValidate, {
-  locale: localStorage.locale,
-  dictionary: {
-    sv: messagesSv
-  }
-})
-Vue.use(VueI18n)
-
-const i18n = new VueI18n({
-  locale: localStorage.locale,
-  fallbackLocale: 'en',
-  messages
-})
 
 /* eslint-disable no-new */
 new Vue({

@@ -12,19 +12,17 @@
               <v-text-field
                 :label="usernameLocale"
                 v-model="username"
-                :error-messages="errors.collect(usernameLocale)"
-                v-validate="'required'"
-                :data-vv-name="usernameLocale"
+                :error-messages="errors.username"
+                @input="resetUsernameField"
               />
               <v-text-field
                 :label="passwordLocale"
                 v-model="password"
-                :error-messages="errors.collect(passwordLocale)"
-                v-validate="'required|min:6|max:32'"
-                :data-vv-name="passwordLocale"
+                :error-messages="errors.password"
                 :append-icon="e1 ? 'visibility' : 'visibility_off'"
                 :append-icon-cb="() => (e1 = !e1)"
                 :type="e1 ? 'password' : 'text'"
+                @input="resetPasswordField"
                 @keyup.enter="login"
               />
 
@@ -46,13 +44,11 @@ export default {
     password: '',
     timeout: 3000,
     snackbar: false,
-    error: ''
-  }),
-  filters: {
-    lowerCase (data) {
-      return data.toLowerCase()
+    errors: {
+      username: [],
+      password: []
     }
-  },
+  }),
   computed: {
     usernameLocale () {
       return this.$t('user.username')
@@ -72,11 +68,26 @@ export default {
     }
   },
   methods: {
+    resetUsernameField () {
+      this.errors.username = []
+    },
+    resetPasswordField () {
+      this.errors.password = []
+    },
     async login () {
-      await this.$store.dispatch('login', {
-        username: this.username,
-        password: this.password
-      })
+      try {
+        await this.$store.dispatch('login', {
+          username: this.username,
+          password: this.password
+        })
+      } catch (e) {
+        this.resetUsernameField()
+        this.resetPasswordField()
+
+        e.forEach(({ validation, field }) => {
+          this.errors[field].push(this.$t(`login.${validation}.${field}`))
+        })
+      }
     }
   }
 }
