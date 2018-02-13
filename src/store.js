@@ -8,7 +8,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     loggedIn: false,
-    loginRedirect: '/'
+    loginRedirect: '/',
+    snackbar: {
+      visible: false
+    }
   },
   mutations: {
     updateLoginStatus (state, loggedIn) {
@@ -16,26 +19,51 @@ export default new Vuex.Store({
     },
     updateLoginRedirect (state, loginRedirect) {
       state.loginRedirect = loginRedirect
+    },
+    updateSnackbar (state, update) {
+      state.snackbar = {
+        visible: true,
+        timeout: 3000,
+        message: '',
+        color: '',
+        top: false,
+        right: false,
+        bottom: false,
+        left: false,
+        ...update
+      }
     }
   },
   actions: {
-    async login ({ commit }, { username, password }) {
+    async login ({ commit, dispatch }, authInfo) {
       try {
-        const { token } = await post('/api/login', {
-          username,
-          password
-        })
+        const { token } = await post('/api/login', authInfo)
 
         localStorage.setItem('token', token)
         commit('updateLoginStatus', true)
-
-        return true
       } catch (e) {
-        // TODO: show an error message to the user
-        console.error(e)
-
-        return false
+        dispatch('displayError', e.message)
       }
+    },
+    displayError ({ commit }, message) {
+      commit('updateSnackbar', {
+        bottom: true,
+        message,
+        color: 'error'
+      })
+    },
+    displayMessage ({ commit }, message) {
+      commit('updateSnackbar', {
+        bottom: true,
+        message
+      })
+    },
+    displaySuccessMessage ({ commit }, message) {
+      commit('updateSnackbar', {
+        bottom: true,
+        message,
+        color: 'success'
+      })
     }
   }
 })

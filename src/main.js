@@ -53,7 +53,8 @@ const headerLang = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      locale: lang
+      accept: 'application/json',
+      language: lang
     }
   }
 })
@@ -82,7 +83,6 @@ const defaultClient = new ApolloClient({
     headerLang,
     httpLink
   ]),
-  // link: authLink.concat(httpLink, errorLink),
   cache: new InMemoryCache(),
   connectToDevTools: true
 })
@@ -114,7 +114,7 @@ new Vue({
   el: '#app',
   router,
   store,
-  apolloProvider,
+  provide: apolloProvider.provide(),
   components: { App },
   template: '<App/>',
   i18n

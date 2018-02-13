@@ -43,7 +43,10 @@ export default {
   data: () => ({
     e1: true,
     username: '',
-    password: ''
+    password: '',
+    timeout: 3000,
+    snackbar: false,
+    error: ''
   }),
   filters: {
     lowerCase (data) {
