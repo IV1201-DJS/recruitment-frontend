@@ -5,19 +5,14 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
-import apolloProvider from './apollo'
 import i18n from './lang/i18n'
+import apolloProvider from './apollo'
 
 import App from './App'
 import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
-
-// Default locale
-if (!localStorage.locale) {
-  localStorage.locale = 'en'
-}
 
 Vue.use(Vuetify)
 
