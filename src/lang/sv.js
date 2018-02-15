@@ -49,6 +49,7 @@ export default {
     competences: 'Kompetenser'
   },
   navbar: {
+    home: 'Hem',
     brandName: 'Rekryteringsapplikation',
     registerApplication: 'Jobbansökan',
     profile: 'Profil',

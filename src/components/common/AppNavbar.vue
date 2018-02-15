@@ -8,13 +8,13 @@
       v-if="loggedIn"
     >
       <v-list dense>
-        <v-list-tile :to="{ name: 'RegisterApplication' }">
+        <v-list-tile :to="{ name: 'Home' }" exact>
           <v-list-tile-action>
             <v-icon>home</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title>Home</v-list-tile-title>
+            <v-list-tile-title><span v-t="'navbar.home'" /></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -69,6 +69,7 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer" class="hidden-md-and-up" v-if="loggedIn" />
 
       <v-toolbar-items class="hidden-sm-and-down" v-if="loggedIn">
+        <v-btn flat :to="{ name: 'Home' }" exact><span v-t="'navbar.home'" /></v-btn>
         <v-btn flat :to="{ name: 'RegisterApplication' }"><span v-t="'navbar.registerApplication'" /></v-btn>
         <v-btn flat :to="{ name: 'Profile' }"><span v-t="'navbar.profile'" /></v-btn>
         <v-btn flat :to="{ name: 'SearchApplication' }"><span v-t="'navbar.applications'" /></v-btn>

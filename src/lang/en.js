@@ -49,6 +49,7 @@ export default {
     competences: 'Competences'
   },
   navbar: {
+    home: 'Home',
     brandName: 'Recruitment application',
     registerApplication: 'Register application',
     profile: 'Profile',
