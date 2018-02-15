@@ -13,7 +13,7 @@
                 :label="usernameLocale"
                 v-model="username"
                 :error-messages="errors.username"
-                @input="resetUsernameField"
+                @input="resetUsernameFieldErrors"
                 @keyup.enter="login"
               />
               <v-text-field
@@ -23,11 +23,13 @@
                 :append-icon="e1 ? 'visibility' : 'visibility_off'"
                 :append-icon-cb="() => (e1 = !e1)"
                 :type="e1 ? 'password' : 'text'"
-                @input="resetPasswordField"
+                @input="resetPasswordFieldErrors"
                 @keyup.enter="login"
               />
 
-              <v-btn color="primary" @click="login" v-t="'login.title'" />
+              <v-btn color="primary" @click="login" :loading="loginLoading" :disabled="loginDisabled">
+                <span v-t="'login.title'" />
+              </v-btn>
               <v-btn color="success" :to="{ name: 'Register' }" v-t="'login.register'" />
             </v-form>
           </v-card-text>
@@ -41,6 +43,8 @@ import { mapState } from 'vuex'
 
 export default {
   data: () => ({
+    loginDisabled: true,
+    loginLoading: false,
     e1: true,
     username: '',
     password: '',
@@ -67,17 +71,50 @@ export default {
       const routerPath = this.$store.state.loginRedirect
       this.$store.commit('updateLoginRedirect', '/')
       this.$router.push(routerPath)
+    },
+    username: function () {
+      this.checkLoginDisable()
+    },
+    password: function () {
+      this.checkLoginDisable()
     }
   },
   methods: {
-    resetUsernameField () {
+    checkLoginDisable () {
+      if (this.username === '') {
+        this.loginDisabled = true
+        return
+      }
+
+      if (this.password === '') {
+        this.loginDisabled = true
+        return
+      }
+
+      if (this.errors.username.length > 0) {
+        this.loginDisabled = true
+        return
+      }
+
+      if (this.errors.password.length > 0) {
+        this.loginDisabled = true
+        return
+      }
+
+      this.loginDisabled = false
+    },
+    resetUsernameFieldErrors () {
       this.errors.username = []
     },
-    resetPasswordField () {
+    resetPasswordFieldErrors () {
       this.errors.password = []
     },
     async login () {
+      if (this.loginDisabled) return
+
       try {
+        this.loginLoading = true
+
         await this.$store.dispatch('login', {
           username: this.username,
           password: this.password
@@ -89,13 +126,15 @@ export default {
           return
         }
 
-        this.resetUsernameField()
-        this.resetPasswordField()
+        this.resetUsernameFieldErrors()
+        this.resetPasswordFieldErrors()
 
         e.forEach(({ validation, field }) => {
           this.errors[field].push(this.$t(`login.${validation}.${field}`))
         })
       }
+
+      this.loginLoading = false
     }
   }
 }

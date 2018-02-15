@@ -1,3 +1,4 @@
+// @ts-check
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -12,7 +13,8 @@ export default new Vuex.Store({
     loginRedirect: '/',
     snackbar: {
       visible: false
-    }
+    },
+    legacyUser: null
   },
   mutations: {
     updateLegacyUser (state, legacyUser) {
@@ -40,7 +42,7 @@ export default new Vuex.Store({
   },
   actions: {
     /**
-     * Tries to authenticate the user with the provided credentials.
+     * Tries to authenticate the user using the provided credentials.
      * @param {any} param0
      * @param {{ username: String, password: String }} authInfo The info to authenticate the user with.
      */
@@ -52,7 +54,6 @@ export default new Vuex.Store({
         localStorage.setItem('token', token)
         commit('updateLoginStatus', true)
       } catch (e) {
-        console.dir(e)
         const { status, data } = e.response
         switch (status) {
           case 422: throw data.errors
@@ -61,6 +62,7 @@ export default new Vuex.Store({
             break
           case 409:
             commit('updateLegacyUser', data.legacyUser)
+            dispatch('displayError', i18n.t('migration.mustUpdate'))
             throw status
           default:
             dispatch('displayError', data)
@@ -68,11 +70,27 @@ export default new Vuex.Store({
       }
     },
     /**
-     * Tries to register a user with the provided credentials.
+     * Tries to register a user using the provided credentials.
      * @param {any} param0
-     * @param {any} userInfo
+     * @param {Object} userInfo
+     * @param {String} userInfo.username
+     * @param {String} userInfo.firstName
+     * @param {String} userInfo.lastName
+     * @param {String} userInfo.ssn
+     * @param {String} userInfo.email
      */
-    async register ({ commit }, userInfo) {
+    async register ({ commit, dispatch }, userInfo) {
+      try {
+        await axios.post('/api/register', userInfo)
+        dispatch('displaySuccessMessage', i18n.t('register.success'))
+      } catch (e) {
+        const { status, data } = e.response
+        switch (status) {
+          case 422: throw data.errors
+          default:
+            dispatch('displayError', data)
+        }
+      }
     },
     /**
      * Displays an error message to the user in the form of a snackbar.

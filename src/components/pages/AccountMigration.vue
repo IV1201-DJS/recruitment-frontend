@@ -49,13 +49,15 @@ export default {
     email: '',
     name: '',
     ssn: '',
-    surname: '',
+    firstName: '',
+    lastName: '',
     username: '',
     errors: {
       email: [],
       name: [],
       ssn: [],
-      surname: [],
+      firstName: [],
+      lastName: [],
       username: []
     }
   }),
@@ -77,9 +79,6 @@ export default {
   computed: {
     accountMigrationLocale () {
       return this.$t('migration.title')
-    },
-    emailLocale () {
-      return this.$t('user.email')
     },
     firstNameLocale () {
       return this.$t('user.firstName')
