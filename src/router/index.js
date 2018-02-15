@@ -6,7 +6,7 @@ import Login from '@/components/pages/Login'
 import Register from '@/components/pages/Register'
 import SearchApplication from '@/components/pages/SearchApplication'
 import Profile from '@/components/pages/Profile'
-import Transfer from '@/components/pages/Transfer'
+import AccountMigration from '@/components/pages/AccountMigration'
 
 Vue.use(Router)
 
@@ -34,9 +34,9 @@ export default new Router({
       component: Login
     },
     {
-      path: '/profile/transfer',
-      name: 'Transfer',
-      component: Transfer
+      path: '/register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '/profile',
@@ -44,9 +44,9 @@ export default new Router({
       component: Profile
     },
     {
-      path: '/register',
-      name: 'Register',
-      component: Register
+      path: '/migrate',
+      name: 'AccountMigration',
+      component: AccountMigration
     }
   ]
 })

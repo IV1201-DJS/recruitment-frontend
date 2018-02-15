@@ -4,7 +4,7 @@
       <v-flex sm10 offset-sm1 text-xs-right>
         <v-card>
           <v-toolbar color="indigo" dark>
-            <v-toolbar-title v-t="'message.login'" />
+            <v-toolbar-title v-t="'login.title'" />
           </v-toolbar>
 
           <v-card-text>
@@ -14,6 +14,7 @@
                 v-model="username"
                 :error-messages="errors.username"
                 @input="resetUsernameField"
+                @keyup.enter="login"
               />
               <v-text-field
                 :label="passwordLocale"
@@ -26,7 +27,8 @@
                 @keyup.enter="login"
               />
 
-              <v-btn color="primary" @click="login" v-t="'message.login'" />
+              <v-btn color="primary" @click="login" v-t="'login.title'" />
+              <v-btn color="success" :to="{ name: 'Register' }" v-t="'login.register'" />
             </v-form>
           </v-card-text>
         </v-card>
@@ -81,6 +83,12 @@ export default {
           password: this.password
         })
       } catch (e) {
+        if (e === 409) {
+          this.$router.push('/migrate')
+
+          return
+        }
+
         this.resetUsernameField()
         this.resetPasswordField()
 

@@ -15,6 +15,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    updateLegacyUser (state, legacyUser) {
+      state.legacyUser = legacyUser
+    },
     updateLoginStatus (state, loggedIn) {
       state.loggedIn = loggedIn
     },
@@ -36,6 +39,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    /**
+     * Tries to authenticate the user with the provided credentials.
+     * @param {any} param0
+     * @param {{ username: String, password: String }} authInfo The info to authenticate the user with.
+     */
     async login ({ commit, dispatch }, authInfo) {
       try {
         const res = await axios.post('/api/login', authInfo)
@@ -51,13 +59,26 @@ export default new Vuex.Store({
           case 401:
             dispatch('displayError', i18n.t('login.invalid'))
             break
+          case 409:
+            commit('updateLegacyUser', data.legacyUser)
+            throw status
           default:
             dispatch('displayError', data)
         }
       }
     },
+    /**
+     * Tries to register a user with the provided credentials.
+     * @param {any} param0
+     * @param {any} userInfo
+     */
     async register ({ commit }, userInfo) {
     },
+    /**
+     * Displays an error message to the user in the form of a snackbar.
+     * @param {any} param0
+     * @param {String} message The message to display.
+     */
     displayError ({ commit }, message) {
       commit('updateSnackbar', {
         bottom: true,
@@ -65,12 +86,22 @@ export default new Vuex.Store({
         color: 'error'
       })
     },
+    /**
+     * Displays a message to the user in the form of a snackbar.
+     * @param {any} param0
+     * @param {String} message The message to display.
+     */
     displayMessage ({ commit }, message) {
       commit('updateSnackbar', {
         bottom: true,
         message
       })
     },
+    /**
+     * Displays a success message to the user in the form of a snackbar.
+     * @param {any} param0
+     * @param {String} message The message to display.
+     */
     displaySuccessMessage ({ commit }, message) {
       commit('updateSnackbar', {
         bottom: true,

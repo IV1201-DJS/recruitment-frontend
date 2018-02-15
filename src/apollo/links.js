@@ -15,11 +15,10 @@ export const errorLink = onError(({ networkError }) => {
     store.commit('updateLoginStatus', false)
     // Save redirect router path
     const path = router.currentRoute.fullPath
-    if (path !== '/login' && path !== '/register') {
+    if (path !== '/login' && path !== '/register' && path !== '/migrate') {
       store.commit('updateLoginRedirect', path)
+      router.push('/login')
     }
-
-    router.push('/login')
   }
 })
 
