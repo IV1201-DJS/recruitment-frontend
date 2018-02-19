@@ -14,9 +14,13 @@ export default new Vuex.Store({
     snackbar: {
       visible: false
     },
-    legacyUser: null
+    legacyUser: null,
+    settingsActive: false
   },
   mutations: {
+    updateSettingsActive (state, active) {
+      state.settingsActive = active
+    },
     updateLegacyUser (state, legacyUser) {
       state.legacyUser = legacyUser
     },

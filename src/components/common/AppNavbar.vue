@@ -48,6 +48,16 @@
           </v-list-tile-content>
         </v-list-tile>
 
+        <v-list-tile @click="settings">
+          <v-list-tile-action>
+            <v-icon>contact_mail</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title><span v-t="'navbar.settings'" /></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
         <v-list-tile @click="logout">
           <v-list-tile-action>
             <v-icon>contact_mail</v-icon>
@@ -61,7 +71,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar fixed app>
+    <v-toolbar fixed app dark color="primary">
       <v-toolbar-title v-t="'navbar.brandName'"></v-toolbar-title>
 
       <v-spacer />
@@ -73,6 +83,7 @@
         <v-btn flat :to="{ name: 'RegisterApplication' }"><span v-t="'navbar.registerApplication'" /></v-btn>
         <v-btn flat :to="{ name: 'Profile' }"><span v-t="'navbar.profile'" /></v-btn>
         <v-btn flat :to="{ name: 'SearchApplication' }"><span v-t="'navbar.applications'" /></v-btn>
+        <v-btn flat @click="settings"><span v-t="'navbar.settings'" /></v-btn>
         <v-btn flat @click="logout"><span v-t="'navbar.logout'" /></v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -93,6 +104,9 @@ export default {
       localStorage.removeItem('token')
       this.$store.commit('updateLoginStatus', false)
       this.$router.push('/login')
+    },
+    settings () {
+      this.$store.commit('updateSettingsActive', true)
     }
   },
   computed: mapState([

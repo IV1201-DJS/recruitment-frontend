@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-xl mt-5>
+  <v-container fluid>
     <v-layout row>
       <v-flex sm10 offset-sm1 text-xs-right>
         <v-card>
@@ -57,6 +57,8 @@
                 :append-icon-cb="() => (e1 = !e1)"
                 :type="e1 ? 'password' : 'text'"
               />
+
+              <v-btn color="success" :to="{ name: 'Login' }" v-t="'register.back'" />
 
               <v-btn color="primary" @click="register" :loading="registerLoading" :disabled="registerDisabled">
                 <span v-t="'register.register'" />

@@ -19,6 +19,8 @@
       :left="snackbar.left"
       v-model="snackbar.visible"
     >{{ snackbar.message }}</v-snackbar>
+
+    <settings />
   </v-app>
 </template>
 
@@ -26,11 +28,12 @@
 import gql from 'graphql-tag'
 import { mapState } from 'vuex'
 
-import Navbar from './components/common/AppNavbar'
-import AppFooter from './components/common/AppFooter'
+import Navbar from '@/components/common/AppNavbar'
+import AppFooter from '@/components/common/AppFooter'
+import Settings from '@/components/common/Settings'
 
 export default {
-  components: { Navbar, AppFooter },
+  components: { Navbar, AppFooter, Settings },
   apollo: {
     // Issue a query to check if the user is logged in
     CurrentUser: {

@@ -1,6 +1,11 @@
 export default {
+  home: {
+    title: 'Welcome the recruitment application',
+    subheading: 'This is the best application ever!',
+    body: 'Register your application today!'
+  },
   login: {
-    success: 'Välkommen!',
+    success: 'Welcome!',
     title: 'Login',
     register: 'Register',
     required: {
@@ -15,6 +20,7 @@ export default {
     migrate: 'Migrate'
   },
   register: {
+    back: 'Back',
     title: 'Account registration',
     register: 'Register',
     password_confirm_mismatch: 'The passwords does not match.',
@@ -55,6 +61,15 @@ export default {
     registerApplication: 'Register application',
     profile: 'Profile',
     applications: 'Applications',
-    logout: 'Logout'
+    logout: 'Logout',
+    settings: 'Settings'
+  },
+  settings: {
+    title: 'Settings',
+    general: 'General',
+    locale: {
+      title: 'Language',
+      subtitle: 'Choose which language the application shall be shown in'
+    }
   }
 }

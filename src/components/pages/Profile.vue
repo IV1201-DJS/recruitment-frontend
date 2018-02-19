@@ -1,5 +1,5 @@
 <template>
-  <v-content v-if="CurrentUser">
+  <v-content v-if="CurrentUser" fluid>
     <h1>Username: {{ CurrentUser.username }}</h1>
     <h2>First name: {{ CurrentUser.firstname }}</h2>
     <h2>Last name: {{ CurrentUser.lastname }}</h2>

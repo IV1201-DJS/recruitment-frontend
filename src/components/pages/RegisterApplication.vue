@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-stepper v-model="e6" vertical>
       <v-stepper-step step="1" v-bind:complete="e6 > 1">
         Validate personal information

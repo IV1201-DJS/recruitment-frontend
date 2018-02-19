@@ -7,6 +7,7 @@ import Register from '@/components/pages/Register'
 import SearchApplication from '@/components/pages/SearchApplication'
 import Profile from '@/components/pages/Profile'
 import AccountMigration from '@/components/pages/AccountMigration'
+import Home from '@/components/pages/Home'
 
 Vue.use(Router)
 
@@ -16,7 +17,7 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Profile
+      component: Home
     },
     {
       path: '/application/create',

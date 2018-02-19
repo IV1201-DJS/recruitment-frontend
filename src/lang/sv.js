@@ -1,4 +1,9 @@
 export default {
+  home: {
+    title: 'Välkommen till rekryteringsapplikationen',
+    subheading: 'Det här är den bästa applikationen någonsin!',
+    body: 'Skriv in dig idag!'
+  },
   login: {
     success: 'Välkommen!',
     title: 'Logga in',
@@ -15,6 +20,7 @@ export default {
     migrate: 'Migrera'
   },
   register: {
+    back: 'Tillbaka',
     title: 'Kontoregistrering',
     register: 'Registrera',
     password_confirm_mismatch: 'Lösenorden stämmet inte överrens.',
@@ -55,6 +61,15 @@ export default {
     registerApplication: 'Jobbansökan',
     profile: 'Profil',
     applications: 'Rekrytering',
-    logout: 'Logga ut'
+    logout: 'Logga ut',
+    settings: 'Inställningar'
+  },
+  settings: {
+    title: 'Inställningar',
+    general: 'Allmänt',
+    locale: {
+      title: 'Språk',
+      subtitle: 'Välj vilket språk applikationen ska visas i'
+    }
   }
 }

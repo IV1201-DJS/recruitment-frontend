@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-xl mt-5>
+  <v-container fluid>
     <v-layout row>
       <v-flex sm10 offset-sm1 text-xs-right>
         <v-card>
@@ -30,6 +30,7 @@
               <v-btn color="primary" @click="login" :loading="loginLoading" :disabled="loginDisabled">
                 <span v-t="'login.title'" />
               </v-btn>
+
               <v-btn color="success" :to="{ name: 'Register' }" v-t="'login.register'" />
             </v-form>
           </v-card-text>

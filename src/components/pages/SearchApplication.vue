@@ -1,9 +1,9 @@
 <template>
-  <v-content>
+  <v-container fluid>
     <competence-search />
 
     <user-application v-for="(user, key) in Applications" :user="user" :key="key" />
-  </v-content>
+  </v-container>
 </template>
 <script>
 import gql from 'graphql-tag'
