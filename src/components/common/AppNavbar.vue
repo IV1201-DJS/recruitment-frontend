@@ -28,16 +28,6 @@
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile :to="{ name: 'Profile' }">
-          <v-list-tile-action>
-            <v-icon>contact_mail</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title><span v-t="'navbar.profile'" /></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-
         <v-list-tile :to="{ name: 'SearchApplication' }">
           <v-list-tile-action>
             <v-icon>contact_mail</v-icon>
@@ -81,7 +71,6 @@
       <v-toolbar-items class="hidden-sm-and-down" v-if="loggedIn">
         <v-btn flat :to="{ name: 'Home' }" exact><span v-t="'navbar.home'" /></v-btn>
         <v-btn flat :to="{ name: 'RegisterApplication' }"><span v-t="'navbar.registerApplication'" /></v-btn>
-        <v-btn flat :to="{ name: 'Profile' }"><span v-t="'navbar.profile'" /></v-btn>
         <v-btn flat :to="{ name: 'SearchApplication' }"><span v-t="'navbar.applications'" /></v-btn>
         <v-btn flat @click="settings"><span v-t="'navbar.settings'" /></v-btn>
         <v-btn flat @click="logout"><span v-t="'navbar.logout'" /></v-btn>

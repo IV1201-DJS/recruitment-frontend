@@ -59,7 +59,6 @@ export default {
     home: 'Home',
     brandName: 'Recruitment application',
     registerApplication: 'Register application',
-    profile: 'Profile',
     applications: 'Applications',
     logout: 'Logout',
     settings: 'Settings'

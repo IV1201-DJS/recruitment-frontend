@@ -5,7 +5,6 @@ import RegisterApplication from '@/components/pages/RegisterApplication'
 import Login from '@/components/pages/Login'
 import Register from '@/components/pages/Register'
 import SearchApplication from '@/components/pages/SearchApplication'
-import Profile from '@/components/pages/Profile'
 import AccountMigration from '@/components/pages/AccountMigration'
 import Home from '@/components/pages/Home'
 
@@ -38,11 +37,6 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
-    },
-    {
-      path: '/profile',
-      name: 'Profile',
-      component: Profile
     },
     {
       path: '/migrate',

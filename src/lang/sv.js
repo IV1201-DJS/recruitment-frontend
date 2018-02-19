@@ -59,7 +59,6 @@ export default {
     home: 'Hem',
     brandName: 'Rekryteringsapplikation',
     registerApplication: 'Jobbansökan',
-    profile: 'Profil',
     applications: 'Rekrytering',
     logout: 'Logga ut',
     settings: 'Inställningar'

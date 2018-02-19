@@ -17,39 +17,8 @@
             <v-toolbar-title v-t="'settings.title'" />
 
             <v-spacer />
-
-            <v-toolbar-items>
-              <v-btn dark flat @click.native="dialog = false">Save</v-btn>
-            </v-toolbar-items>
-
-            <v-menu bottom right offset-y>
-              <v-btn slot="activator" dark icon>
-                <v-icon>more_vert</v-icon>
-              </v-btn>
-            </v-menu>
-
           </v-toolbar>
           <v-card-text>
-            <v-list three-line subheader>
-              <v-subheader>User Controls</v-subheader>
-
-              <v-list-tile avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title>Content filtering</v-list-tile-title>
-                  <v-list-tile-sub-title>Set the content filtering level to restrict apps that can be downloaded</v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-
-              <v-list-tile avatar>
-                <v-list-tile-content>
-                  <v-list-tile-title>Password</v-list-tile-title>
-                  <v-list-tile-sub-title>Require password for purchase or use password to restrict purchase</v-list-tile-sub-title>
-                </v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-
-            <v-divider />
-
             <v-list three-line subheader>
               <v-subheader v-t="'settings.general'" />
 
@@ -86,6 +55,7 @@ export default {
     this.language = localeObj.language
   },
   data: () => ({
+    CurrentUser: {},
     localesAndLocale: [
       {
         locale: 'en',
@@ -99,10 +69,6 @@ export default {
     language: '',
     languages: []
   }),
-  watch: {
-    language: function (current) {
-    }
-  },
   methods: {
     closeSettings () {
       this.$store.commit('updateSettingsActive', false)
