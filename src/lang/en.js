@@ -1,5 +1,6 @@
 export default {
   login: {
+    success: 'Välkommen!',
     title: 'Login',
     register: 'Register',
     required: {

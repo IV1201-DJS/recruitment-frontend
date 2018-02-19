@@ -1,5 +1,6 @@
 export default {
   login: {
+    success: 'Välkommen!',
     title: 'Logga in',
     register: 'Registrera',
     required: {

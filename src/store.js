@@ -27,6 +27,7 @@ export default new Vuex.Store({
       state.loginRedirect = loginRedirect
     },
     updateSnackbar (state, update) {
+      // Remove the current snackbar
       state.snackbar = {
         visible: true,
         timeout: 3000,
@@ -53,6 +54,7 @@ export default new Vuex.Store({
 
         localStorage.setItem('token', token)
         commit('updateLoginStatus', true)
+        dispatch('displaySuccessMessage', i18n.t('login.success'))
       } catch (e) {
         const { status, data } = e.response
         switch (status) {
