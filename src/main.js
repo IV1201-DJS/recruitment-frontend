@@ -4,6 +4,8 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+// Polyfill for IE11 and Safari 9
+import 'babel-polyfill'
 
 import i18n from './lang/i18n'
 import apolloProvider from './apollo'
