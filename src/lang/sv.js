@@ -76,13 +76,13 @@ export default {
     competence: 'Kompetens',
     experience: 'Erfarenhet',
     years: 'år',
-    availability: 'Tillgänglighet',
     verifyApplication: 'Bekräfta ansökan',
     back: 'Tillbaka',
     continue: 'Fortsätt',
     send: 'Skicka'
   },
   availability: {
+    title: 'Tillgänglighet',
     fromDate: 'Från datum',
     toDate: 'Till datum',
     ok: 'Ok',

@@ -1,11 +1,11 @@
 <template>
   <v-container fluid>
     <v-layout row wrap>
-      <v-flex sm1>
+      <v-flex sm1 v-if="editable">
         <v-btn color="error" @click="removeCompetence">X</v-btn>
       </v-flex>
 
-      <v-spacer />
+      <v-spacer v-if="editable" />
 
       <v-flex xs12 sm6>
         <v-text-field
@@ -26,6 +26,7 @@
           min=0.1
           step=0.1
           :suffix="$t('competence.years')"
+          :disabled="!editable"
         />
       </v-flex>
     </v-layout>
@@ -36,6 +37,10 @@ import gql from 'graphql-tag'
 
 export default {
   props: {
+    editable: {
+      type: Boolean,
+      default: true
+    },
     competence: {
       id: {
         type: String,

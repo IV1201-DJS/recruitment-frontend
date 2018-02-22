@@ -76,13 +76,13 @@ export default {
     competence: 'Competence',
     experience: 'Experience',
     years: 'years',
-    availability: 'Availability',
     verifyApplication: 'Verify application',
     back: 'Back',
     continue: 'Fortsätt',
     send: 'Send'
   },
   availability: {
+    availability: 'Availability',
     fromDate: 'From date',
     toDate: 'To date',
     ok: 'Ok',
