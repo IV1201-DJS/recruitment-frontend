@@ -16,9 +16,29 @@ export default new Vuex.Store({
     },
     legacyUser: null,
     settingsActive: false,
-    competences: []
+    competences: [],
+    fromDate: null,
+    toDate: null
   },
   mutations: {
+    /**
+     * Updates availability to date.
+     *
+     * @param {any} state
+     * @param {any} toDate
+     */
+    updateAvailabilityToDate (state, toDate) {
+      state.toDate = toDate
+    },
+    /**
+     * Updates availability from date.
+     *
+     * @param {any} state
+     * @param {any} fromDate
+     */
+    updateAvailabilityFromDate (state, fromDate) {
+      state.fromDate = fromDate
+    },
     /**
      * Updates if the settings are active or not.
      *
@@ -59,19 +79,38 @@ export default new Vuex.Store({
      * Adds the provided competence.
      *
      * @param {*} state
-     * @param {*} competence
+     * @param {Object} competence
+     * @param {String} competence.id
+     * @param {Number} competence.experience
      */
     addCompetence (state, competence) {
       state.competences = [...state.competences, competence]
     },
     /**
+     * Updates the provided competence experience.
+     *
+     * @param {any} state
+     * @param {Object} competence
+     * @param {String} competence.id
+     * @param {Number} competence.experience
+     */
+    updateCompetenceExperience (state, competence) {
+      const competences = [...state.competences]
+      const index = competences.findIndex(cmp => cmp.id === competence.id)
+      competences[index] = competence
+
+      state.competences = competences
+    },
+    /**
      * Removes the provided competence.
      *
      * @param {*} state
-     * @param {*} competence
+     * @param {Object} competence
+     * @param {String} competence.id
+     * @param {Number} competence.experience
      */
     removeCompetence (state, competence) {
-      state.competences = state.competences.filter(cComp => cComp !== competence)
+      state.competences = state.competences.filter(cComp => cComp.id !== competence)
     },
     /**
      * Updates the information about the active snackbar.
@@ -95,11 +134,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    updateCompetenceExperience ({ commit }, competence) {
+      if (!competence) return
+
+      commit('updateCompetenceExperience', competence)
+    },
     /**
      * Removes a competence if it exists.
      *
      * @param {any} { commit }
-     * @param {any} competence
+     * @param {Object} competence
+     * @param {String} competence.id
+     * @param {Number} competence.experience
      */
     removeCompetence ({ commit, state }, competence) {
       if (!competence) return
@@ -110,12 +156,15 @@ export default new Vuex.Store({
      * Adds a competence if it does not already exist.
      *
      * @param {any} { commit }
-     * @param {any} competence
+     * @param {Object} competence
+     * @param {String} competence.id
+     * @param {Number} competence.experience
      */
     addCompetence ({ commit, state }, competence) {
-      if (!competence) return
+      if (!competence || !competence.id) return
 
-      if (state.competences.includes(competence)) return
+      // Don't add the item if id does not exist
+      if (state.competences.find(cComp => cComp.id === competence.id)) return
 
       commit('addCompetence', competence)
     },

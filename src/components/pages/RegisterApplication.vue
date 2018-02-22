@@ -4,10 +4,10 @@
       <v-stepper-step step="1" v-bind:complete="e6 > 1"><span v-t="'competence.competences'" /></v-stepper-step>
 
       <v-stepper-content step="1">
-        <v-card color="grey lighten-4" flat>
-          <competence-listing v-for="competence in competences" :initCompetence="competence" :key="competence" />
+        <v-card color="grey lighten-4" class="mb-5" flat>
+          <competence-listing v-for="competence in competences" :competence="competence" :key="competence.id" />
 
-          <competence-listing :initial="true" />
+          <competence-picker />
         </v-card>
 
         <v-btn color="primary" @click.native="e6 = 2"><span v-t="'competence.continue'" /></v-btn>
@@ -16,7 +16,7 @@
       <v-stepper-step step="2" v-bind:complete="e6 > 2"><span v-t="'competence.availability'" /></v-stepper-step>
 
       <v-stepper-content step="2">
-        <v-card color="grey lighten-4" flat>
+        <v-card color="grey lighten-4" class="mb-5 pl-4 pr-4" flat>
           <availability-picker />
         </v-card>
 
@@ -38,12 +38,16 @@
 import { mapState } from 'vuex'
 
 import CompetenceListing from './subpages/CompetenceListing'
+import CompetencePicker from './subpages/CompetencePicker'
 import AvailabilityPicker from './subpages/AvailabilityPicker'
+import ApplicationValidation from './subpages/ApplicationValidation'
 
 export default {
   components: {
+    CompetencePicker,
     CompetenceListing,
-    AvailabilityPicker
+    AvailabilityPicker,
+    ApplicationValidation
   },
   data () {
     return {

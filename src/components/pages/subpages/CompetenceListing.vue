@@ -2,21 +2,16 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex sm1>
-        <v-btn color="error" @click="removeCompetence" v-if="competence">X</v-btn>
+        <v-btn color="error" @click="removeCompetence">X</v-btn>
       </v-flex>
 
-      <v-spacer v-if="competence" />
+      <v-spacer />
 
       <v-flex xs12 sm6>
-        <v-select
-          :items="filteredCompetences"
-          item-text="name"
-          item-value="id"
-          v-model="competence"
+        <v-text-field
+          :value="findCompetence(competence.id).name"
           :label="$t('competence.competence')"
-          autocomplete
-          @change="competenceChange"
-          ref="competenceSelect"
+          disabled
         />
       </v-flex>
 
@@ -38,55 +33,41 @@
 </template>
 <script>
 import gql from 'graphql-tag'
-import { mapState } from 'vuex'
 
 export default {
-  created () {
-    this.competence = this.initCompetence
-  },
   props: {
-    initCompetence: String,
-    initial: {
-      default: false,
-      type: Boolean
+    competence: {
+      id: {
+        type: String,
+        required: true
+      }
     }
   },
   data: () => ({
-    competence: null,
-    experience: 0.1,
-    AllCompetences: []
+    experience: 0.1
   }),
   watch: {
-    competence: function (newCompetence, oldCompetence) {
-      if (!this.initial) {
-        this.$store.dispatch('removeCompetence', oldCompetence)
-        this.$store.dispatch('addCompetence', newCompetence)
-      }
+    async experience (newExperience) {
+      if (newExperience > 100) newExperience = 100
+      else if (newExperience < 0.1) newExperience = 0.1
+
+      this.$store.dispatch('updateCompetenceExperience', {
+        id: this.competence,
+        experience: newExperience
+      })
+
+      await this.$nextTick()
+
+      this.experience = newExperience
     }
   },
   methods: {
-    async competenceChange () {
-      if (this.initial) {
-        await this.$nextTick()
-        this.$store.dispatch('addCompetence', this.competence)
-        this.competence = null
-        this.$refs.competenceSelect.blur()
-      }
-    },
     removeCompetence () {
       this.$store.dispatch('removeCompetence', this.competence)
-    }
-  },
-  computed: {
-    filteredCompetences () {
-      const isCurrentCompetence = (cComp) => cComp.id === this.competence
-      const isInStore = (cComp) => this.competences.includes(cComp.id)
-
-      return this.AllCompetences.filter(comp => isCurrentCompetence(comp) || !isInStore(comp))
     },
-    ...mapState([
-      'competences'
-    ])
+    findCompetence (id) {
+      return this.AllCompetences.find(competence => competence.id === id)
+    }
   },
   apollo: {
     AllCompetences: {

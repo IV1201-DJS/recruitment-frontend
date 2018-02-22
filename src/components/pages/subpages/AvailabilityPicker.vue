@@ -1,6 +1,6 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12 sm5 offset-sm1>
+    <v-flex xs12 sm5>
       <v-menu
         ref="fromDateMenu"
         lazy
@@ -71,6 +71,18 @@ export default {
     fromDateMenu: false,
     toDateMenu: false
   }),
+  watch: {
+    fromDate: function (newFromDate) {
+      if (!newFromDate) return
+
+      this.$store.commit('updateAvailabilityFromDate', newFromDate)
+    },
+    toDate: function (newToDate) {
+      if (!newToDate) return
+
+      this.$store.commit('updateAvailabilityToDate', newToDate)
+    }
+  },
   computed: {
     today () {
       return moment().format('Y-MM-DD')
