@@ -81,5 +81,11 @@ export default {
     back: 'Back',
     continue: 'Fortsätt',
     send: 'Send'
+  },
+  availability: {
+    fromDate: 'From date',
+    toDate: 'To date',
+    ok: 'Ok',
+    cancel: 'Cancel'
   }
 }

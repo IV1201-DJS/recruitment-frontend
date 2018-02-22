@@ -5,7 +5,9 @@
         <v-btn color="error" @click="removeCompetence" v-if="competence">X</v-btn>
       </v-flex>
 
-      <v-flex xs12 sm6 offset-sm1>
+      <v-spacer v-if="competence" />
+
+      <v-flex xs12 sm6>
         <v-select
           :items="filteredCompetences"
           item-text="name"
@@ -18,7 +20,9 @@
         />
       </v-flex>
 
-      <v-flex xs12 sm3 offset-sm1>
+      <v-spacer />
+
+      <v-flex xs12 sm3>
         <v-text-field
           v-model="experience"
           :label="$t('competence.experience')"

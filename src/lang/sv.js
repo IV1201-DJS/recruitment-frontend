@@ -77,9 +77,15 @@ export default {
     experience: 'Erfarenhet',
     years: 'år',
     availability: 'Tillgänglighet',
-    verifyApplication: 'Verifiera ansökan',
+    verifyApplication: 'Bekräfta ansökan',
     back: 'Tillbaka',
     continue: 'Fortsätt',
     send: 'Skicka'
+  },
+  availability: {
+    fromDate: 'Från datum',
+    toDate: 'Till datum',
+    ok: 'Ok',
+    cancel: 'Avbryt'
   }
 }

@@ -17,6 +17,7 @@
 
       <v-stepper-content step="2">
         <v-card color="grey lighten-4" flat>
+          <availability-picker />
         </v-card>
 
         <v-btn color="primary" @click.native="e6 = 3"><span v-t="'competence.continue'" /></v-btn>
@@ -36,11 +37,14 @@
 <script>
 import { mapState } from 'vuex'
 
-import CompetenceSearch from './subpages/CompetenceSearch'
 import CompetenceListing from './subpages/CompetenceListing'
+import AvailabilityPicker from './subpages/AvailabilityPicker'
 
 export default {
-  components: { CompetenceSearch, CompetenceListing },
+  components: {
+    CompetenceListing,
+    AvailabilityPicker
+  },
   data () {
     return {
       e6: 1,
