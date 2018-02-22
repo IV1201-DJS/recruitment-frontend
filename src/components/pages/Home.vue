@@ -11,7 +11,7 @@
 
             <div class="title mb-3" v-t="'home.body'"></div>
 
-            <v-btn large :to="{  }" color="primary" class="mx-0">
+            <v-btn large :to="{ name: 'RegisterApplication' }" color="primary" class="mx-0">
               <span v-t="'navbar.registerApplication'" />
             </v-btn>
           </v-flex>

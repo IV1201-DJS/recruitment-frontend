@@ -15,21 +15,70 @@ export default new Vuex.Store({
       visible: false
     },
     legacyUser: null,
-    settingsActive: false
+    settingsActive: false,
+    competences: []
   },
   mutations: {
+    /**
+     * Updates if the settings are active or not.
+     *
+     * @param {*} state
+     * @param {*} active
+     */
     updateSettingsActive (state, active) {
       state.settingsActive = active
     },
+    /**
+     * Updates the information about the legacy user.
+     *
+     * @param {*} state
+     * @param {*} legacyUser
+     */
     updateLegacyUser (state, legacyUser) {
       state.legacyUser = legacyUser
     },
+    /**
+     * Updates the login status of the current user.
+     *
+     * @param {*} state
+     * @param {*} loggedIn
+     */
     updateLoginStatus (state, loggedIn) {
       state.loggedIn = loggedIn
     },
+    /**
+     * Updates the page to redirect the user when they log in.
+     *
+     * @param {*} state
+     * @param {*} loginRedirect
+     */
     updateLoginRedirect (state, loginRedirect) {
       state.loginRedirect = loginRedirect
     },
+    /**
+     * Adds the provided competence.
+     *
+     * @param {*} state
+     * @param {*} competence
+     */
+    addCompetence (state, competence) {
+      state.competences = [...state.competences, competence]
+    },
+    /**
+     * Removes the provided competence.
+     *
+     * @param {*} state
+     * @param {*} competence
+     */
+    removeCompetence (state, competence) {
+      state.competences = state.competences.filter(cComp => cComp !== competence)
+    },
+    /**
+     * Updates the information about the active snackbar.
+     *
+     * @param {*} state
+     * @param {*} update
+     */
     updateSnackbar (state, update) {
       // Remove the current snackbar
       state.snackbar = {
@@ -47,7 +96,32 @@ export default new Vuex.Store({
   },
   actions: {
     /**
+     * Removes a competence if it exists.
+     *
+     * @param {any} { commit }
+     * @param {any} competence
+     */
+    removeCompetence ({ commit, state }, competence) {
+      if (!competence) return
+
+      commit('removeCompetence', competence)
+    },
+    /**
+     * Adds a competence if it does not already exist.
+     *
+     * @param {any} { commit }
+     * @param {any} competence
+     */
+    addCompetence ({ commit, state }, competence) {
+      if (!competence) return
+
+      if (state.competences.includes(competence)) return
+
+      commit('addCompetence', competence)
+    },
+    /**
      * Tries to authenticate the user using the provided credentials.
+     *
      * @param {any} param0
      * @param {{ username: String, password: String }} authInfo The info to authenticate the user with.
      */
@@ -77,6 +151,7 @@ export default new Vuex.Store({
     },
     /**
      * Tries to register a user using the provided credentials.
+     *
      * @param {any} param0
      * @param {Object} userInfo
      * @param {String} userInfo.username
@@ -100,6 +175,7 @@ export default new Vuex.Store({
     },
     /**
      * Displays an error message to the user in the form of a snackbar.
+     *
      * @param {any} param0
      * @param {String} message The message to display.
      */
@@ -112,6 +188,7 @@ export default new Vuex.Store({
     },
     /**
      * Displays a message to the user in the form of a snackbar.
+     *
      * @param {any} param0
      * @param {String} message The message to display.
      */
@@ -123,6 +200,7 @@ export default new Vuex.Store({
     },
     /**
      * Displays a success message to the user in the form of a snackbar.
+     *
      * @param {any} param0
      * @param {String} message The message to display.
      */

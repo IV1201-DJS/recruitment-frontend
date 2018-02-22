@@ -70,5 +70,16 @@ export default {
       title: 'Language',
       subtitle: 'Choose which language the application shall be shown in'
     }
+  },
+  competence: {
+    competences: 'Competences',
+    competence: 'Competence',
+    experience: 'Experience',
+    years: 'years',
+    availability: 'Availability',
+    verifyApplication: 'Verify application',
+    back: 'Back',
+    continue: 'Fortsätt',
+    send: 'Send'
   }
 }

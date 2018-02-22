@@ -70,5 +70,16 @@ export default {
       title: 'Språk',
       subtitle: 'Välj vilket språk applikationen ska visas i'
     }
+  },
+  competence: {
+    competences: 'Kompetenser',
+    competence: 'Kompetens',
+    experience: 'Erfarenhet',
+    years: 'år',
+    availability: 'Tillgänglighet',
+    verifyApplication: 'Verifiera ansökan',
+    back: 'Tillbaka',
+    continue: 'Fortsätt',
+    send: 'Skicka'
   }
 }
