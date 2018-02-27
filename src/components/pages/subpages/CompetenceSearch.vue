@@ -1,27 +1,21 @@
 <template>
-  <v-card flat>
-    <v-card-text>
-      <v-container fluid>
-        <v-layout>
-          <v-flex>
-            <v-select
-              label="Competences"
-              autocomplete
-              :loading="loading"
-              multiple
-              cache-items
-              chips
-              required
-              :items="items"
-              :rules="[() => select.length > 0 || 'You must choose at least one competence']"
-              :search-input.sync="search"
-              v-model="select"
-            ></v-select>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-card-text>
-  </v-card>
+  <v-container fluid>
+    <v-layout>
+      <v-flex>
+        <v-select
+          :label="$t('competence.competences')"
+          autocomplete
+          :loading="AllCompetences.loading"
+          multiple
+          chips
+          :items="AllCompetences"
+          item-text="name"
+          item-value="id"
+          v-model="selectedCompetences"
+        ></v-select>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 <script>
 import gql from 'graphql-tag'
@@ -29,50 +23,27 @@ import gql from 'graphql-tag'
 export default {
   data () {
     return {
+      AllCompetences: [],
       loading: false,
       items: [],
       search: null,
-      select: [],
-      Competences: [],
-      competenceQuery: ''
+      selectedCompetences: []
     }
   },
   watch: {
-    search (val) {
-      val && this.querySelections(val)
-    },
-    select: function (selected) {
-      this.$parent.$emit('updateCriteria', selected)
+    selectedCompetences (newCompetences) {
+      this.$store.dispatch('updateCompetences', newCompetences)
     }
   },
   apollo: {
-    Competences: {
-      query: gql`query ($name: String!) {
-        Competences (name: $name) {
+    AllCompetences: {
+      query: gql`query {
+        AllCompetences {
           id
           name
         }
-      }`,
-      variables () {
-        return {
-          name: this.competenceQuery
-        }
-      }
-    }
-  },
-  methods: {
-    querySelections (query) {
-      this.competenceQuery = query
-      this.loading = true
-
-      this.items = this.Competences
-        .map(item => item.name)
-        .filter(e => {
-          return (e || '').toLowerCase().indexOf((query || '').toLowerCase())
-        })
-
-      this.loading = false
+      }`
     }
   }
 }
-</script>
+</script>>

@@ -18,9 +18,19 @@ export default new Vuex.Store({
     settingsActive: false,
     competences: [],
     fromDate: null,
-    toDate: null
+    toDate: null,
+    competenceCriteria: []
   },
   mutations: {
+    /**
+     * Updates the competences to search for in the store.
+     *
+     * @param {any} state
+     * @param {any} competences
+     */
+    updateCompetences (state, competences) {
+      state.competenceCriteria = [...competences]
+    },
     /**
      * Updates availability to date.
      *
@@ -259,6 +269,15 @@ export default new Vuex.Store({
         message,
         color: 'success'
       })
+    },
+    /**
+     * Updates the competences to search for.
+     *
+     * @param {any} param0
+     * @param {Object} competences
+     */
+    updateCompetences ({ commit }, competences) {
+      commit('updateCompetences', competences)
     }
   }
 })

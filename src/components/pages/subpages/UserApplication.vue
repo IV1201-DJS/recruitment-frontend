@@ -26,7 +26,7 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn flat dark>See more</v-btn>
+            <v-btn flat dark>View profile</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -42,7 +42,8 @@ export default {
       ssn: String,
       email: String,
       competences: [{
-        name: String
+        name: String,
+        experience_years: Number
       }]
     }
   }

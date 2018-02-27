@@ -113,7 +113,7 @@ export default {
         await this.$apollo.mutate({
           // TODO: remove user_id
           mutation: gql`mutation ($competences: [CompetenceInput], $availabilities: [AvailabilityInput], $user_id: Int) {
-            addApplication(competences: $competences, availabilities: $availabilities, user_id: $user_id) {
+            addApplication (competences: $competences, availabilities: $availabilities, user_id: $user_id) {
               user {
                 id
               }
