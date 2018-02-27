@@ -84,11 +84,6 @@ export default {
       'fromDate',
       'toDate'
     ])
-  },
-  watch: {
-    search (val) {
-      val && this.querySelections(val)
-    }
   }
 }
 </script>

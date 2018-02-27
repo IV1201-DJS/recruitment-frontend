@@ -45,19 +45,28 @@ export default {
       id: {
         type: String,
         required: true
-      }
+      },
+      experience: Number
     }
+  },
+  created () {
+    this.experience = this.competence.experience || 0.1
   },
   data: () => ({
     experience: 0.1
   }),
   watch: {
+    competence (newCompetence) {
+      if (!this.editable) {
+        this.experience = newCompetence.experience
+      }
+    },
     async experience (newExperience) {
       if (newExperience > 100) newExperience = 100
       else if (newExperience < 0.1) newExperience = 0.1
 
       this.$store.dispatch('updateCompetenceExperience', {
-        id: this.competence,
+        id: this.competence.id,
         experience: newExperience
       })
 

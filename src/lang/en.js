@@ -82,7 +82,7 @@ export default {
     send: 'Send'
   },
   availability: {
-    availability: 'Availability',
+    title: 'Availability',
     fromDate: 'From date',
     toDate: 'To date',
     ok: 'Ok',

@@ -110,7 +110,7 @@ export default new Vuex.Store({
      * @param {Number} competence.experience
      */
     removeCompetence (state, competence) {
-      state.competences = state.competences.filter(cComp => cComp.id !== competence)
+      state.competences = state.competences.filter(cComp => cComp.id !== competence.id)
     },
     /**
      * Updates the information about the active snackbar.
