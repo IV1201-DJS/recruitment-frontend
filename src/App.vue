@@ -4,7 +4,9 @@
 
     <v-container fluid mt-5>
       <v-layout justify-center align-center>
-        <router-view />
+        <transition name="fade">
+          <router-view />
+        </transition>
       </v-layout>
     </v-container>
 
@@ -50,3 +52,16 @@ export default {
   ])
 }
 </script>
+<style lang="sass" scoped>
+
+.fade-enter-active, .fade-leave-active
+  transition-property: opacity;
+  transition-duration: .25s;
+
+.fade-enter-active
+  transition-delay: .25s;
+
+.fade-enter, .fade-leave-active
+  opacity: 0
+
+</style>
