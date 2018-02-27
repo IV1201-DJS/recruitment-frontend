@@ -87,5 +87,11 @@ export default {
     toDate: 'Till datum',
     ok: 'Ok',
     cancel: 'Avbryt'
+  },
+  validate: {
+    success: 'Din ansökan har registrerats!',
+    error: {
+      pending: 'Du har redan en pågående ansökan'
+    }
   }
 }

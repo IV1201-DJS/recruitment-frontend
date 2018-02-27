@@ -10,7 +10,7 @@
           <competence-picker />
         </v-card>
 
-        <v-btn color="primary" @click.native="e6 = 2"><span v-t="'competence.continue'" /></v-btn>
+        <v-btn color="primary" @click.native="e6 = 2" :disabled="competenceNextDisabled"><span v-t="'competence.continue'" /></v-btn>
       </v-stepper-content>
 
       <v-stepper-step step="2" v-bind:complete="e6 > 2"><span v-t="'availability.title'" /></v-stepper-step>
@@ -20,7 +20,7 @@
           <availability-picker />
         </v-card>
 
-        <v-btn color="primary" @click.native="e6 = 3"><span v-t="'competence.continue'" /></v-btn>
+        <v-btn color="primary" @click.native="e6 = 3" :disabled="availableNextDisabled"><span v-t="'competence.continue'" /></v-btn>
         <v-btn flat @click.native="e6 = 1"><span v-t="'competence.back'" /></v-btn>
       </v-stepper-content>
 
@@ -46,13 +46,14 @@
           </v-layout>
         </v-card>
 
-        <v-btn color="success"><span v-t="'competence.send'" /></v-btn>
+        <v-btn color="success" @click="sendApplication" :loading="loading"><span v-t="'competence.send'" /></v-btn>
         <v-btn flat @click.native="e6 = 2"><span v-t="'competence.back'" /></v-btn>
       </v-stepper-content>
     </v-stepper>
   </v-container>
 </template>
 <script>
+import gql from 'graphql-tag'
 import { mapState } from 'vuex'
 
 import CompetenceListing from './subpages/CompetenceListing'
@@ -65,25 +66,82 @@ export default {
     CompetenceListing,
     AvailabilityPicker
   },
-  data () {
-    return {
-      e6: 1,
-      CurrentUser: {},
-      loading: false,
-      items: [],
-      search: null,
-      select: []
-    }
+  data: () => ({
+    competenceNextDisabled: true,
+    availableNextDisabled: true,
+    e6: 1,
+    CurrentUser: {},
+    loading: false,
+    items: [],
+    search: null,
+    select: []
+  }),
+  created () {
+    this.competenceNextDisabledFn(this.competences)
+    this.availableNextDisabledFn(this.fromDate, this.toDate)
   },
   computed: {
-    competencesLocale () {
-      return this.$t('user.competences')
-    },
+    competencesLocale: () => this.$t('user.competences'),
     ...mapState([
       'competences',
       'fromDate',
       'toDate'
     ])
+  },
+  watch: {
+    competences (newCompetences) {
+      this.competenceNextDisabledFn(newCompetences)
+    },
+    fromDate (newFromDate) {
+      this.availableNextDisabledFn(newFromDate, this.toDate)
+    },
+    toDate (newToDate) {
+      this.availableNextDisabledFn(this.toDate, newToDate)
+    }
+  },
+  methods: {
+    availableNextDisabledFn (fromDate, toDate) {
+      this.availableNextDisabled = !fromDate || !toDate
+    },
+    competenceNextDisabledFn (newCompetences) {
+      this.competenceNextDisabled = newCompetences.length === 0
+    },
+    async sendApplication () {
+      this.loading = true
+
+      try {
+        await this.$apollo.mutate({
+          // TODO: remove user_id
+          mutation: gql`mutation ($competences: [CompetenceInput], $availabilities: [AvailabilityInput], $user_id: Int) {
+            addApplication(competences: $competences, availabilities: $availabilities, user_id: $user_id) {
+              user {
+                id
+              }
+            }
+          }`,
+          variables: {
+            competences: this.competences,
+            availabilities: {
+              from: this.fromDate,
+              to: this.toDate
+            },
+            user_id: 1
+          }
+        })
+
+        this.$store.dispatch('displaySuccessMessage', this.$t('validate.success'))
+        this.$router.push('/')
+      } catch (error) {
+        if (error.message === 'GraphQL error: User has a pending application already') {
+          this.$store.dispatch('displayError', this.$t('validate.error.pending'))
+        } else {
+          this.$store.dispatch('displayError', error.message)
+          console.dir(error)
+        }
+      }
+
+      this.loading = false
+    }
   }
 }
 </script>

@@ -24,7 +24,7 @@
         <v-date-picker v-model="fromDate" no-title scrollable :min="today" :max="toDate">
           <v-spacer />
           <v-btn flat color="primary" @click="fromDateMenu = false"><span v-t="'availability.cancel'" /></v-btn>
-          <v-btn flat color="primary" @click="$refs.fromDateMenu.save(fromDate)"><span v-t="'availability.ok'" /></v-btn>
+          <v-btn flat color="primary" @click="$refs.fromDateMenu.save(fromDate);fromDateChange(fromDate)"><span v-t="'availability.ok'" /></v-btn>
         </v-date-picker>
       </v-menu>
     </v-flex>
@@ -55,7 +55,7 @@
         <v-date-picker v-model="toDate" no-title scrollable :min="fromDate">
           <v-spacer></v-spacer>
           <v-btn flat color="primary" @click="toDateMenu = false"><span v-t="'availability.cancel'" /></v-btn>
-          <v-btn flat color="primary" @click="$refs.toDateMenu.save(toDate)"><span v-t="'availability.ok'" /></v-btn>
+          <v-btn flat color="primary" @click="$refs.toDateMenu.save(toDate);toDateChange(toDate)"><span v-t="'availability.ok'" /></v-btn>
         </v-date-picker>
       </v-menu>
     </v-flex>
@@ -71,21 +71,25 @@ export default {
     fromDateMenu: false,
     toDateMenu: false
   }),
-  watch: {
-    fromDate: function (newFromDate) {
-      if (!newFromDate) return
-
-      this.$store.commit('updateAvailabilityFromDate', newFromDate)
-    },
-    toDate: function (newToDate) {
-      if (!newToDate) return
-
-      this.$store.commit('updateAvailabilityToDate', newToDate)
-    }
+  created () {
+    this.fromDate = this.$store.state.fromDate
+    this.toDate = this.$store.state.toDate
   },
   computed: {
     today () {
       return moment().format('Y-MM-DD')
+    }
+  },
+  methods: {
+    fromDateChange (newFromDate) {
+      if (!newFromDate) return
+
+      this.$store.commit('updateAvailabilityFromDate', newFromDate)
+    },
+    toDateChange (newToDate) {
+      if (!newToDate) return
+
+      this.$store.commit('updateAvailabilityToDate', newToDate)
     }
   }
 }

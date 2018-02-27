@@ -87,5 +87,11 @@ export default {
     toDate: 'To date',
     ok: 'Ok',
     cancel: 'Cancel'
+  },
+  validate: {
+    success: 'Your application has been registered!',
+    error: {
+      pending: 'You already have a pending application'
+    }
   }
 }

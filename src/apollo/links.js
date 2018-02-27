@@ -10,7 +10,7 @@ export const httpLink = new HttpLink({
 })
 
 export const errorLink = onError(({ networkError }) => {
-  if (networkError.statusCode === 401) {
+  if (networkError && networkError.statusCode === 401) {
     // The user is not logged in -> update the store
     store.commit('updateLoginStatus', false)
     // Save redirect router path

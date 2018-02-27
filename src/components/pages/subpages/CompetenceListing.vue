@@ -19,7 +19,7 @@
 
       <v-flex xs12 sm3>
         <v-text-field
-          v-model="experience"
+          v-model="experience_years"
           :label="$t('competence.experience')"
           type="number"
           max=100
@@ -46,33 +46,33 @@ export default {
         type: String,
         required: true
       },
-      experience: Number
+      experience_years: Number
     }
   },
   created () {
-    this.experience = this.competence.experience || 0.1
+    this.experience = this.competence.experience_years || 0.1
   },
   data: () => ({
-    experience: 0.1
+    experience_years: 0.1
   }),
   watch: {
     competence (newCompetence) {
       if (!this.editable) {
-        this.experience = newCompetence.experience
+        this.experience_years = newCompetence.experience_years
       }
     },
-    async experience (newExperience) {
+    async experience_years (newExperience) {
       if (newExperience > 100) newExperience = 100
       else if (newExperience < 0.1) newExperience = 0.1
 
       this.$store.dispatch('updateCompetenceExperience', {
         id: this.competence.id,
-        experience: newExperience
+        experience_years: newExperience
       })
 
       await this.$nextTick()
 
-      this.experience = newExperience
+      this.experience_years = newExperience
     }
   },
   methods: {

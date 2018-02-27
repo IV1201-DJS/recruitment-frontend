@@ -23,7 +23,7 @@ import { mapState } from 'vuex'
 export default {
   data: () => ({
     competence: null,
-    experience: 0.1,
+    experience_years: 0.1,
     AllCompetences: []
   }),
   methods: {
@@ -33,12 +33,12 @@ export default {
 
       this.$store.dispatch('addCompetence', {
         id: this.competence,
-        experience: this.experience
+        experience_years: this.experience_years
       })
 
       // RESET SELECT
       this.competence = null
-      this.experience = 0.1
+      this.experience_years = 0.1
 
       this.$refs.competenceSelect.blur()
     },

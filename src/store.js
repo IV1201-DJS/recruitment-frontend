@@ -81,7 +81,7 @@ export default new Vuex.Store({
      * @param {*} state
      * @param {Object} competence
      * @param {String} competence.id
-     * @param {Number} competence.experience
+     * @param {Number} competence.experience_years
      */
     addCompetence (state, competence) {
       state.competences = [...state.competences, competence]
@@ -92,7 +92,7 @@ export default new Vuex.Store({
      * @param {any} state
      * @param {Object} competence
      * @param {String} competence.id
-     * @param {Number} competence.experience
+     * @param {Number} competence.experience_years
      */
     updateCompetenceExperience (state, competence) {
       const competences = [...state.competences]
@@ -107,7 +107,7 @@ export default new Vuex.Store({
      * @param {*} state
      * @param {Object} competence
      * @param {String} competence.id
-     * @param {Number} competence.experience
+     * @param {Number} competence.experience_years
      */
     removeCompetence (state, competence) {
       state.competences = state.competences.filter(cComp => cComp.id !== competence.id)
@@ -145,7 +145,7 @@ export default new Vuex.Store({
      * @param {any} { commit }
      * @param {Object} competence
      * @param {String} competence.id
-     * @param {Number} competence.experience
+     * @param {Number} competence.experience_years
      */
     removeCompetence ({ commit, state }, competence) {
       if (!competence) return
@@ -158,7 +158,7 @@ export default new Vuex.Store({
      * @param {any} { commit }
      * @param {Object} competence
      * @param {String} competence.id
-     * @param {Number} competence.experience
+     * @param {Number} competence.experience_years
      */
     addCompetence ({ commit, state }, competence) {
       if (!competence || !competence.id) return
