@@ -93,5 +93,9 @@ export default {
     error: {
       pending: 'You already have a pending application'
     }
+  },
+  userApplication: {
+    dateOfRegistration: 'Date of registration',
+    viewProfile: 'View profile'
   }
 }

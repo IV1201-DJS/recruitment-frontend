@@ -93,5 +93,9 @@ export default {
     error: {
       pending: 'Du har redan en pågående ansökan'
     }
+  },
+  userApplication: {
+    dateOfRegistration: 'Ansökningsdatum',
+    viewProfile: 'Visa profil'
   }
 }

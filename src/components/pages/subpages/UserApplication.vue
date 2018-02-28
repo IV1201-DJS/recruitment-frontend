@@ -8,11 +8,11 @@
           </v-card-title>
 
           <v-card-text>
-            <h3>Date of registration: {{ user.ssn }}</h3>
+            <h3>{{ $t('userApplication.dateOfRegistration') }}: {{ user.ssn }}</h3>
           </v-card-text>
 
           <v-card-actions>
-            <v-btn flat dark>View profile</v-btn>
+            <v-btn flat dark>{{ $t('userApplication.viewProfile') }}</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
