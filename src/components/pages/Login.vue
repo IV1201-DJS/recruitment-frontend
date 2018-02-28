@@ -31,7 +31,9 @@
                 <span v-t="'login.title'" />
               </v-btn>
 
-              <v-btn color="success" :to="{ name: 'Register' }" v-t="'login.register'" />
+              <v-btn color="success" :to="{ name: 'Register' }">
+                {{ $t('login.register') }}
+              </v-btn>
             </v-form>
           </v-card-text>
         </v-card>

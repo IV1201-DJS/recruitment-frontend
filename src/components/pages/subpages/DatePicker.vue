@@ -19,7 +19,7 @@
       readonly
     />
 
-    <v-date-picker v-model="date" no-title scrollable :max="maxDate" :min="minDate">
+    <v-date-picker v-model="date" no-title scrollable :min="min" :max="max">
       <v-spacer />
 
       <v-btn flat color="primary" @click="dateMenu = false">{{ $t('availability.cancel') }}</v-btn>
@@ -31,8 +31,8 @@
 export default {
   props: {
     initDate: String,
-    maxDate: Date,
-    minDate: Date,
+    min: String,
+    max: String,
     label: {
       type: String,
       required: true

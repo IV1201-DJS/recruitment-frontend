@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <competence-search />
+    <competence-search v-on:competenceChange="competenceChange($event)" />
 
     <availability-picker v-on:fromDateChange="fromDateChange($event)"
                          v-on:toDateChange="toDateChange($event)" />
@@ -8,12 +8,13 @@
     <date-picker :label="$t('userApplication.dateOfRegistration')"
                  v-on:dateChange="regDateChange($event)"/>
 
-    <user-application v-for="application in Applications" :user="application.user" :key="application.user.ssn" />
+    <user-application v-for="application in Applications"
+                      :user="application.user"
+                      :key="application.user.ssn" />
   </v-container>
 </template>
 <script>
 import gql from 'graphql-tag'
-import { mapState } from 'vuex'
 
 import CompetenceSearch from './subpages/CompetenceSearch'
 import UserApplication from './subpages/UserApplication'
@@ -31,9 +32,13 @@ export default {
     Applications: [],
     fromDate: null,
     toDate: null,
-    dateOfRegistration: null
+    dateOfRegistration: null,
+    competenceCriteria: []
   }),
   methods: {
+    competenceChange (updatedCompetences) {
+      this.competenceCriteria = updatedCompetences
+    },
     fromDateChange (newFromDate) {
       this.fromDate = newFromDate
     },
@@ -45,10 +50,7 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'competenceCriteria'
-    ]),
-    competences: () => {
+    competences () {
       if (!this.competenceCriteria) return null
       if (this.competenceCriteria.length === 0) return null
 
@@ -65,11 +67,12 @@ export default {
   },
   apollo: {
     Applications: {
-      query: gql`query ($competence_ids: [ID], $searched_availability: AvailabilityInput, $full_name: FullNameInput, $date_of_registration: String) {
+      query: gql`query applications ($competence_ids: [ID], $searched_availability: AvailabilityInput, $full_name: FullNameInput, $date_of_registration: String) {
         Applications (competence_ids: $competence_ids, searched_availability: $searched_availability, full_name: $full_name, date_of_registration: $date_of_registration) {
           user {
             firstname
             lastname
+            ssn
           }
         }
       }`,

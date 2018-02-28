@@ -32,7 +32,7 @@ export default {
   },
   watch: {
     selectedCompetences (newCompetences) {
-      this.$store.dispatch('updateCompetences', newCompetences)
+      this.$emit('competenceChange', newCompetences)
     }
   },
   apollo: {

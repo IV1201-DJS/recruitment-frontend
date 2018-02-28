@@ -25,12 +25,7 @@ export default {
     user: {
       firstName: String,
       lastName: String,
-      ssn: String,
-      email: String,
-      competences: [{
-        name: String,
-        experience_years: Number
-      }]
+      ssn: String
     }
   }
 }
