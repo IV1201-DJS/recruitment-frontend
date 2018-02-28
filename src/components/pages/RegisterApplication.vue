@@ -17,7 +17,7 @@
 
       <v-stepper-content step="2">
         <v-card color="grey lighten-4" class="mb-5 pl-4 pr-4" flat>
-          <availability-picker />
+          <availability-picker v-on:fromDateChange="fromDateChange($event)" v-on:toDateChange="toDateChange($event)" />
         </v-card>
 
         <v-btn color="primary" @click.native="e6 = 3" :disabled="availableNextDisabled"><span v-t="'competence.continue'" /></v-btn>
@@ -100,6 +100,12 @@ export default {
     }
   },
   methods: {
+    fromDateChange (newFromDate) {
+      this.$store.commit('updateAvailabilityFromDate', newFromDate)
+    },
+    toDateChange (newToDate) {
+      this.$store.commit('updateAvailabilityToDate', newToDate)
+    },
     availableNextDisabledFn (fromDate, toDate) {
       this.availableNextDisabled = !fromDate || !toDate
     },

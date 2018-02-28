@@ -53,7 +53,8 @@
         />
 
         <v-date-picker v-model="toDate" no-title scrollable :min="fromDate">
-          <v-spacer></v-spacer>
+          <v-spacer />
+
           <v-btn flat color="primary" @click="toDateMenu = false"><span v-t="'availability.cancel'" /></v-btn>
           <v-btn flat color="primary" @click="$refs.toDateMenu.save(toDate);toDateChange(toDate)"><span v-t="'availability.ok'" /></v-btn>
         </v-date-picker>
@@ -76,20 +77,18 @@ export default {
     this.toDate = this.$store.state.toDate
   },
   computed: {
-    today () {
-      return moment().format('Y-MM-DD')
-    }
+    today: () => moment().format('Y-MM-DD')
   },
   methods: {
     fromDateChange (newFromDate) {
       if (!newFromDate) return
 
-      this.$store.commit('updateAvailabilityFromDate', newFromDate)
+      this.$emit('fromDateChange', newFromDate)
     },
     toDateChange (newToDate) {
       if (!newToDate) return
 
-      this.$store.commit('updateAvailabilityToDate', newToDate)
+      this.$emit('toDateChange', newToDate)
     }
   }
 }
