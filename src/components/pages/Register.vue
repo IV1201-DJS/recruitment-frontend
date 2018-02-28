@@ -10,37 +10,37 @@
           <v-card-text>
             <v-form>
               <v-text-field
-                :label="firstnameLocale"
+                :label="$t('user.firstname')"
                 v-model="firstname"
                 :error-messages="errors.firstname"
                 @input="resetFirstnameErrors"
               />
               <v-text-field
-                :label="lastnameLocale"
+                :label="$t('user.lastname')"
                 v-model="lastname"
                 :error-messages="errors.lastname"
                 @input="resetLastnameErrors"
               />
               <v-text-field
-                :label="ssnLocale"
+                :label="$t('user.ssn')"
                 v-model="ssn"
                 :error-messages="errors.ssn"
                 @input="resetSSNErrors"
               />
               <v-text-field
-                :label="emailLocale"
+                :label="$t('user.email')"
                 v-model="email"
                 :error-messages="errors.email"
                 @input="resetEmailErrors"
               />
               <v-text-field
-                :label="usernameLocale"
+                :label="$t('user.username')"
                 v-model="username"
                 :error-messages="errors.username"
                 @input="resetUsernameErrors"
               />
               <v-text-field
-                :label="passwordLocale"
+                :label="$t('user.password')"
                 v-model="password"
                 :error-messages="errors.password"
                 @input="resetPasswordErrors"
@@ -49,7 +49,7 @@
                 :type="e1 ? 'password' : 'text'"
               />
               <v-text-field
-                :label="passwordConfirmLocale"
+                :label="$t('register.password_confirm')"
                 v-model="passwordConfirm"
                 :error-messages="errors.passwordConfirm"
                 @input="validatePassword"
@@ -206,32 +206,6 @@ export default {
       }
 
       this.registerLoading = false
-    }
-  },
-  computed: {
-    accountMigrationLocale () {
-      return this.$t('migration.title')
-    },
-    firstnameLocale () {
-      return this.$t('user.firstname')
-    },
-    lastnameLocale () {
-      return this.$t('user.lastname')
-    },
-    ssnLocale () {
-      return this.$t('user.ssn')
-    },
-    emailLocale () {
-      return this.$t('user.email')
-    },
-    usernameLocale () {
-      return this.$t('user.username')
-    },
-    passwordLocale () {
-      return this.$t('user.password')
-    },
-    passwordConfirmLocale () {
-      return this.$t('register.password_confirm')
     }
   }
 }

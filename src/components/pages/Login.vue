@@ -10,14 +10,14 @@
           <v-card-text>
             <v-form>
               <v-text-field
-                :label="usernameLocale"
+                :label="$t('user.username')"
                 v-model="username"
                 :error-messages="errors.username"
                 @input="resetUsernameFieldErrors"
                 @keyup.enter="login"
               />
               <v-text-field
-                :label="passwordLocale"
+                :label="$t('user.password')"
                 v-model="password"
                 :error-messages="errors.password"
                 :append-icon="e1 ? 'visibility' : 'visibility_off'"
@@ -56,17 +56,9 @@ export default {
       password: []
     }
   }),
-  computed: {
-    usernameLocale () {
-      return this.$t('user.username')
-    },
-    passwordLocale () {
-      return this.$t('user.password')
-    },
-    ...mapState([
-      'loggedIn'
-    ])
-  },
+  computed: mapState([
+    'loggedIn'
+  ]),
   watch: {
     loggedIn: function (newState) {
       const routerPath = this.$store.state.loginRedirect

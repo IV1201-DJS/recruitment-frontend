@@ -2,7 +2,11 @@
   <v-container fluid>
     <competence-search />
 
-    <availability-picker v-on:fromDateChange="fromDateChange($event)" v-on:toDateChange="toDateChange($event)" />
+    <availability-picker v-on:fromDateChange="fromDateChange($event)"
+                         v-on:toDateChange="toDateChange($event)" />
+
+    <date-picker :label="$t('userApplication.dateOfRegistration')"
+                 v-on:dateChange="regDateChange($event)"/>
 
     <user-application v-for="application in Applications" :user="application.user" :key="application.user.ssn" />
   </v-container>
@@ -14,13 +18,20 @@ import { mapState } from 'vuex'
 import CompetenceSearch from './subpages/CompetenceSearch'
 import UserApplication from './subpages/UserApplication'
 import AvailabilityPicker from './subpages/AvailabilityPicker'
+import DatePicker from './subpages/DatePicker'
 
 export default {
-  components: { CompetenceSearch, UserApplication, AvailabilityPicker },
+  components: {
+    CompetenceSearch,
+    UserApplication,
+    AvailabilityPicker,
+    DatePicker
+  },
   data: () => ({
     Applications: [],
     fromDate: null,
-    toDate: null
+    toDate: null,
+    dateOfRegistration: null
   }),
   methods: {
     fromDateChange (newFromDate) {
@@ -28,6 +39,9 @@ export default {
     },
     toDateChange (newToDate) {
       this.toDate = newToDate
+    },
+    regDateChange (newDate) {
+      this.dateOfRegistration = newDate
     }
   },
   computed: {
@@ -64,7 +78,7 @@ export default {
           competence_ids: this.competences,
           searched_availability: this.availability,
           full_name: null,
-          date_of_registration: null
+          date_of_registration: this.dateOfRegistration
         }
       }
     }

@@ -5,7 +5,9 @@
 
       <v-stepper-content step="1">
         <v-card color="grey lighten-4" class="mb-5" flat>
-          <competence-listing v-for="competence in competences" :competence="competence" :key="competence.id" />
+          <competence-listing v-for="competence in competences"
+                              :competence="competence"
+                              :key="competence.id" />
 
           <competence-picker />
         </v-card>
@@ -13,18 +15,25 @@
         <v-btn color="primary" @click.native="e6 = 2" :disabled="competenceNextDisabled"><span v-t="'competence.continue'" /></v-btn>
       </v-stepper-content>
 
-      <v-stepper-step step="2" v-bind:complete="e6 > 2"><span v-t="'availability.title'" /></v-stepper-step>
+      <v-stepper-step step="2" v-bind:complete="e6 > 2">
+        <span v-t="'availability.title'" />
+      </v-stepper-step>
 
       <v-stepper-content step="2">
         <v-card color="grey lighten-4" class="mb-5 pl-4 pr-4" flat>
-          <availability-picker v-on:fromDateChange="fromDateChange($event)" v-on:toDateChange="toDateChange($event)" />
+          <availability-picker v-on:fromDateChange="fromDateChange($event)"
+                               v-on:toDateChange="toDateChange($event)"
+                               :initFromDate="$store.state.fromDate"
+                               :initToDate="$store.state.toDate" />
         </v-card>
 
         <v-btn color="primary" @click.native="e6 = 3" :disabled="availableNextDisabled"><span v-t="'competence.continue'" /></v-btn>
         <v-btn flat @click.native="e6 = 1"><span v-t="'competence.back'" /></v-btn>
       </v-stepper-content>
 
-      <v-stepper-step step="3" v-bind:complete="e6 > 3"><span v-t="'competence.verifyApplication'" /></v-stepper-step>
+      <v-stepper-step step="3" v-bind:complete="e6 > 3">
+        <span v-t="'competence.verifyApplication'" />
+      </v-stepper-step>
       <v-stepper-content step="3">
         <v-card class="mb-5">
           <v-card-title primary-title>
