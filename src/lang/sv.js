@@ -96,6 +96,6 @@ export default {
   },
   userApplication: {
     dateOfRegistration: 'Ansökningsdatum',
-    viewProfile: 'Visa profil'
+    viewProfile: 'Visa ansökan'
   }
 }

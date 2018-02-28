@@ -35,27 +35,9 @@
         <span v-t="'competence.verifyApplication'" />
       </v-stepper-step>
       <v-stepper-content step="3">
-        <v-card class="mb-5">
-          <v-card-title primary-title>
-            <div class="headline" v-t="'competence.competences'" />
-          </v-card-title>
+        <application-summary :competences="competences" :fromDate="fromDate" :toDate="toDate" />
 
-          <competence-listing v-for="competence in competences" :editable="false" :competence="competence" :key="competence.id" />
-
-          <v-card-title primary-title>
-            <div class="headline" v-t="'availability.title'" />
-          </v-card-title>
-
-          <v-layout row wrap class="pr-4 pl-4">
-            <v-text-field xs12 sm5 :value="fromDate" :label="$t('availability.fromDate')" disabled />
-
-            <v-spacer />
-
-            <v-text-field xs12 sm5 :value="toDate" :label="$t('availability.toDate')" disabled />
-          </v-layout>
-        </v-card>
-
-        <v-btn color="success" @click="sendApplication" :loading="loading"><span v-t="'competence.send'" /></v-btn>
+        <v-btn color="success" @click="sendApplication" :loading="loading">{{ $t('competence.send')}}</v-btn>
         <v-btn flat @click.native="e6 = 2"><span v-t="'competence.back'" /></v-btn>
       </v-stepper-content>
     </v-stepper>
@@ -68,12 +50,14 @@ import { mapState } from 'vuex'
 import CompetenceListing from './subpages/CompetenceListing'
 import CompetencePicker from './subpages/CompetencePicker'
 import AvailabilityPicker from './subpages/AvailabilityPicker'
+import ApplicationSummary from './subpages/ApplicationSummary'
 
 export default {
   components: {
     CompetencePicker,
     CompetenceListing,
-    AvailabilityPicker
+    AvailabilityPicker,
+    ApplicationSummary
   },
   data: () => ({
     competenceNextDisabled: true,

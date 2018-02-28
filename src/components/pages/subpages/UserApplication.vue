@@ -12,7 +12,9 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn flat dark>{{ $t('userApplication.viewProfile') }}</v-btn>
+            <v-btn flat dark :to="{ name: 'ViewApplication', params: { id: user.id } }">
+              {{ $t('userApplication.viewProfile') }}
+            </v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -23,6 +25,7 @@
 export default {
   props: {
     user: {
+      id: Number,
       firstName: String,
       lastName: String,
       ssn: String

@@ -5,6 +5,7 @@ import RegisterApplication from '@/components/pages/RegisterApplication'
 import Login from '@/components/pages/Login'
 import Register from '@/components/pages/Register'
 import SearchApplication from '@/components/pages/SearchApplication'
+import ViewApplication from '@/components/pages/ViewApplication'
 import AccountMigration from '@/components/pages/AccountMigration'
 import Home from '@/components/pages/Home'
 
@@ -27,6 +28,11 @@ export default new Router({
       path: '/application/search',
       name: 'SearchApplication',
       component: SearchApplication
+    },
+    {
+      path: '/application/view/:id',
+      name: 'ViewApplication',
+      component: ViewApplication
     },
     {
       path: '/login',

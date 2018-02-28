@@ -10,7 +10,7 @@
 
     <user-application v-for="application in Applications"
                       :user="application.user"
-                      :key="application.user.ssn" />
+                      :key="application.user.id" />
   </v-container>
 </template>
 <script>
@@ -70,9 +70,9 @@ export default {
       query: gql`query applications ($competence_ids: [ID], $searched_availability: AvailabilityInput, $full_name: FullNameInput, $date_of_registration: String) {
         Applications (competence_ids: $competence_ids, searched_availability: $searched_availability, full_name: $full_name, date_of_registration: $date_of_registration) {
           user {
+            id
             firstname
             lastname
-            ssn
           }
         }
       }`,
