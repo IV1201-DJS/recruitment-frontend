@@ -96,6 +96,8 @@ export default {
   },
   userApplication: {
     dateOfRegistration: 'Date of registration',
-    viewProfile: 'View application'
+    viewProfile: 'View application',
+    applicant: 'Applicant',
+    status: 'Status'
   }
 }
