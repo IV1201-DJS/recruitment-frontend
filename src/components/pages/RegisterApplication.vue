@@ -12,11 +12,11 @@
           <competence-picker />
         </v-card>
 
-        <v-btn color="primary" @click.native="e6 = 2" :disabled="competenceNextDisabled"><span v-t="'competence.continue'" /></v-btn>
+        <v-btn color="primary" @click.native="e6 = 2" :disabled="competenceNextDisabled">{{ $t('competence.continue') }}</v-btn>
       </v-stepper-content>
 
       <v-stepper-step step="2" v-bind:complete="e6 > 2">
-        <span v-t="'availability.title'" />
+        {{ $t('availability.title') }}
       </v-stepper-step>
 
       <v-stepper-content step="2">
@@ -27,18 +27,18 @@
                                :initToDate="$store.state.toDate" />
         </v-card>
 
-        <v-btn color="primary" @click.native="e6 = 3" :disabled="availableNextDisabled"><span v-t="'competence.continue'" /></v-btn>
-        <v-btn flat @click.native="e6 = 1"><span v-t="'competence.back'" /></v-btn>
+        <v-btn color="primary" @click.native="e6 = 3" :disabled="availableNextDisabled">{{ $t('competence.continue') }}</v-btn>
+        <v-btn flat @click.native="e6 = 1">{{ $t('competence.back') }}</v-btn>
       </v-stepper-content>
 
       <v-stepper-step step="3" v-bind:complete="e6 > 3">
-        <span v-t="'competence.verifyApplication'" />
+        {{ $t('competence.verifyApplication') }}
       </v-stepper-step>
       <v-stepper-content step="3">
         <application-summary :competences="competences" :fromDate="fromDate" :toDate="toDate" />
 
         <v-btn color="success" @click="sendApplication" :loading="loading">{{ $t('competence.send')}}</v-btn>
-        <v-btn flat @click.native="e6 = 2"><span v-t="'competence.back'" /></v-btn>
+        <v-btn flat @click.native="e6 = 2">{{ $t('competence.back') }}</v-btn>
       </v-stepper-content>
     </v-stepper>
   </v-container>
@@ -110,9 +110,8 @@ export default {
 
       try {
         await this.$apollo.mutate({
-          // TODO: remove user_id
-          mutation: gql`mutation ($competences: [CompetenceInput], $availabilities: [AvailabilityInput], $user_id: Int) {
-            addApplication (competences: $competences, availabilities: $availabilities, user_id: $user_id) {
+          mutation: gql`mutation ($competences: [CompetenceInput], $availabilities: [AvailabilityInput]) {
+            addApplication (competences: $competences, availabilities: $availabilities) {
               user {
                 id
               }
@@ -123,8 +122,7 @@ export default {
             availabilities: {
               from: this.fromDate,
               to: this.toDate
-            },
-            user_id: 1
+            }
           }
         })
 

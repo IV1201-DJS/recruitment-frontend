@@ -53,7 +53,8 @@ export default {
     username: 'Username',
     password: 'Password',
     competence: 'Competence',
-    competences: 'Competences'
+    competences: 'Competences',
+    name: 'Name'
   },
   navbar: {
     home: 'Home',

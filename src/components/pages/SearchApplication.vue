@@ -8,9 +8,24 @@
     <date-picker :label="$t('userApplication.dateOfRegistration')"
                  v-on:dateChange="regDateChange($event)"/>
 
-    <user-application v-for="application in Applications"
-                      :user="application.user"
-                      :key="application.user.id" />
+    <v-text-field
+      :label="$t('user.name')"
+      v-model="name"
+    />
+
+    <user-application v-for="application in Applications.data"
+                      :application="application"
+                      :key="application.id" />
+
+    <v-layout justify-center>
+      <v-flex xs8>
+        <v-card>
+          <v-card-text>
+            <v-pagination :length="Applications.lastPage" v-model="page" />
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 <script>
@@ -29,11 +44,16 @@ export default {
     DatePicker
   },
   data: () => ({
-    Applications: [],
+    Applications: {
+      lastPage: 1,
+      page: 1
+    },
     fromDate: null,
     toDate: null,
     dateOfRegistration: null,
-    competenceCriteria: []
+    competenceCriteria: [],
+    name: '',
+    page: 1
   }),
   methods: {
     competenceChange (updatedCompetences) {
@@ -47,6 +67,11 @@ export default {
     },
     regDateChange (newDate) {
       this.dateOfRegistration = newDate
+    }
+  },
+  watch: {
+    Applications (newApplications) {
+      this.page = newApplications.page
     }
   },
   computed: {
@@ -67,12 +92,17 @@ export default {
   },
   apollo: {
     Applications: {
-      query: gql`query applications ($competence_ids: [ID], $searched_availability: AvailabilityInput, $full_name: FullNameInput, $date_of_registration: String) {
-        Applications (competence_ids: $competence_ids, searched_availability: $searched_availability, full_name: $full_name, date_of_registration: $date_of_registration) {
-          user {
+      query: gql`query applications ($competence_ids: [ID], $searched_availability: AvailabilityInput, $name: String, $date_of_registration: String, $page: Int!, $page_size: Int!) {
+        Applications (competence_ids: $competence_ids, searched_availability: $searched_availability, name: $name, date_of_registration: $date_of_registration, page: $page, page_size: $page_size) {
+          lastPage
+          page
+          data {
             id
-            firstname
-            lastname
+            user {
+              firstname
+              lastname
+            }
+            date_of_registration
           }
         }
       }`,
@@ -80,10 +110,13 @@ export default {
         return {
           competence_ids: this.competences,
           searched_availability: this.availability,
-          full_name: null,
-          date_of_registration: this.dateOfRegistration
+          name: this.name,
+          date_of_registration: this.dateOfRegistration,
+          page: this.page,
+          page_size: 10
         }
-      }
+      },
+      fetchPolicy: 'cache-and-network'
     }
   }
 }

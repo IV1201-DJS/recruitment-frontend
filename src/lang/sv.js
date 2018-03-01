@@ -53,7 +53,8 @@ export default {
     username: 'Användarnamn',
     password: 'Lösenord',
     competence: 'Kompetens',
-    competences: 'Kompetenser'
+    competences: 'Kompetenser',
+    name: 'Namn'
   },
   navbar: {
     home: 'Hem',

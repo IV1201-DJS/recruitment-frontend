@@ -4,15 +4,15 @@
       <v-flex xs12>
         <v-card color="cyan darken-3" class="white--text" ripple raised>
           <v-card-title primary-title>
-            <div class="headline">{{ user.firstname }} {{ user.lastname }}</div>
+            <div class="headline">{{ application.user.firstname }} {{ application.user.lastname }}</div>
           </v-card-title>
 
           <v-card-text>
-            <h3>{{ $t('userApplication.dateOfRegistration') }}: {{ user.ssn }}</h3>
+            <h3>{{ $t('userApplication.dateOfRegistration') }}: {{ application.date_of_registration }}</h3>
           </v-card-text>
 
           <v-card-actions>
-            <v-btn flat dark :to="{ name: 'ViewApplication', params: { id: user.id } }">
+            <v-btn flat dark :to="{ name: 'ViewApplication', params: { id: application.id } }">
               {{ $t('userApplication.viewProfile') }}
             </v-btn>
           </v-card-actions>
@@ -24,11 +24,14 @@
 <script>
 export default {
   props: {
-    user: {
+    application: {
       id: Number,
-      firstName: String,
-      lastName: String,
-      ssn: String
+      user: {
+        id: Number,
+        firstName: String,
+        lastName: String
+      },
+      date_of_registration: String
     }
   }
 }
