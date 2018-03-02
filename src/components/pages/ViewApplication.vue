@@ -1,7 +1,17 @@
 <template>
-  <v-container fluid>
-    <h1>{{ $t('userApplication.applicant') }}: {{ User.firstname }} {{ User.lastname }}</h1>
-    <h2>{{ $t('userApplication.status') }}: NOT IMPLEMENTED</h2>
+  <v-container fluid v-if="!$apollo.loading">
+    <v-card class="mb-5">
+      <v-card-title primary-title>
+        <div class="headline">{{ $t('userApplication.applicant') }}: {{ Application.user.firstname }} {{ Application.user.lastname }}</div>
+
+        <v-spacer />
+
+        <div class="headline">{{ $t('userApplication.status') }}: {{ Application.status.name }}</div>
+      </v-card-title>
+    </v-card>
+
+    <application-summary :competences="Application.user.competences"
+                         :availabilities="this.Application.user.availabilities" />
   </v-container>
 </template>
 <script>
@@ -12,14 +22,27 @@ import ApplicationSummary from './subpages/ApplicationSummary'
 export default {
   components: { ApplicationSummary },
   data: () => ({
-    User: {}
+    Application: {}
   }),
   apollo: {
-    User: {
+    Application: {
       query: gql`query ($id: ID!) {
-        User (id: $id) {
-          firstname
-          lastname
+        Application (id: $id) {
+          status {
+            name
+          }
+          user {
+            firstname
+            lastname
+            availabilities {
+              from
+              to
+            }
+            competences {
+              id
+              experience_years
+            }
+          }
         }
       }`,
       variables () {

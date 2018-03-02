@@ -16,29 +16,9 @@ export default new Vuex.Store({
     },
     legacyUser: null,
     settingsActive: false,
-    competences: [],
-    fromDate: null,
-    toDate: null
+    competences: []
   },
   mutations: {
-    /**
-     * Updates availability to date.
-     *
-     * @param {any} state
-     * @param {any} toDate
-     */
-    updateAvailabilityToDate (state, toDate) {
-      state.toDate = toDate
-    },
-    /**
-     * Updates availability from date.
-     *
-     * @param {any} state
-     * @param {any} fromDate
-     */
-    updateAvailabilityFromDate (state, fromDate) {
-      state.fromDate = fromDate
-    },
     /**
      * Updates if the settings are active or not.
      *

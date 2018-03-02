@@ -92,7 +92,7 @@ export default {
   },
   apollo: {
     Applications: {
-      query: gql`query applications ($competence_ids: [ID], $searched_availability: AvailabilityInput, $name: String, $date_of_registration: String, $page: Int!, $page_size: Int!) {
+      query: gql`query ($competence_ids: [ID], $searched_availability: AvailabilityInput, $name: String, $date_of_registration: String, $page: Int!, $page_size: Int!) {
         Applications (competence_ids: $competence_ids, searched_availability: $searched_availability, name: $name, date_of_registration: $date_of_registration, page: $page, page_size: $page_size) {
           lastPage
           page

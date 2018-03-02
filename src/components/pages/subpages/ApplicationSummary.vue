@@ -13,12 +13,16 @@
       <div class="headline" v-t="'availability.title'" />
     </v-card-title>
 
-    <v-layout row wrap class="pr-4 pl-4">
-      <v-text-field xs12 sm5 :value="fromDate" :label="$t('availability.fromDate')" disabled />
+    <v-layout row
+              wrap
+              class="pr-4 pl-4"
+              v-for="(availability, index) in availabilities"
+              :key="index + 'summary'">
+      <v-text-field xs12 sm5 :value="availability.from" :label="$t('availability.fromDate')" disabled />
 
       <v-spacer />
 
-      <v-text-field xs12 sm5 :value="toDate" :label="$t('availability.toDate')" disabled />
+      <v-text-field xs12 sm5 :value="availability.to" :label="$t('availability.toDate')" disabled />
     </v-layout>
   </v-card>
 </template>
@@ -29,8 +33,7 @@ export default {
   components: { CompetenceListing },
   props: {
     competences: Array,
-    fromDate: String,
-    toDate: String
+    availabilities: Array
   }
 }
 </script>

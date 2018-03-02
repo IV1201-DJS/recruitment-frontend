@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid v-if="!$apollo.loading">
     <v-layout row wrap>
       <v-flex sm1 v-if="editable">
         <v-btn color="error" @click="removeCompetence">X</v-btn>
@@ -53,7 +53,8 @@ export default {
     this.experience = this.competence.experience_years || 0.1
   },
   data: () => ({
-    experience_years: 0.1
+    experience_years: 0.1,
+    AllCompetences: []
   }),
   watch: {
     competence (newCompetence) {
