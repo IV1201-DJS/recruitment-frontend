@@ -99,6 +99,7 @@ export default {
     dateOfRegistration: 'Date of registration',
     viewProfile: 'View application',
     applicant: 'Applicant',
-    status: 'Status'
+    status: 'Status',
+    changeStatus: 'Change status'
   }
 }
