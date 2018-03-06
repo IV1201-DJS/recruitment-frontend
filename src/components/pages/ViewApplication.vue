@@ -14,6 +14,7 @@
           item-value="id"
           v-model="currentStatus"
           :label="$t('userApplication.changeStatus')"
+          :disabled="statusDisabled"
         />
       </v-card-title>
     </v-card>
@@ -36,11 +37,14 @@ export default {
     Application: {},
     AllApplicationStatuses: [],
     ApplicationStatuses: [],
-    currentStatus: 1
+    currentStatus: -1
   }),
   computed: {
     applicationId () {
       return this.$route.params.id
+    },
+    statusDisabled () {
+      return this.currentStatus !== -1
     }
   },
   watch: {
@@ -55,7 +59,7 @@ export default {
 
       this.currentStatus = newApplication.status.id
     },
-    currentStatus (newStatus) {
+    currentStatus (newStatus, oldStatus) {
       if (!newStatus) return
 
       this.updateApplicationStatus(newStatus)
@@ -116,8 +120,10 @@ export default {
             new_status: newStatus
           }
         })
-      } catch (e) {
-        console.error(e)
+      } catch (error) {
+        error.graphQLErrors.forEach(error => {
+          this.$store.dispatch('displayError', this.$t(`error.${error.message}`))
+        })
       }
     }
   },

@@ -106,5 +106,11 @@ export default {
   status: {
     ACCEPTED: 'Accepterad',
     DECLINED: 'Nekad'
+  },
+  error: {
+    PENDING_APPLICATION_EXISTS: 'Du har redan en pågående ansökan',
+    APPLICATION_STATUS_ALREADY_SET: 'Någon har redan uppdaterat den här applikationen',
+    COMPETENCE_PARAMETERS_INVALID: 'Du har inte angett någon kompetens',
+    AVAILABILITY_PARAMETERS_INVALID: 'Du har inte angett någon tillgänglighet'
   }
 }

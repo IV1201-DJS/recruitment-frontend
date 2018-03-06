@@ -90,10 +90,7 @@ export default {
     cancel: 'Cancel'
   },
   validate: {
-    success: 'Your application has been registered!',
-    error: {
-      pending: 'You already have a pending application'
-    }
+    success: 'Your application has been registered!'
   },
   userApplication: {
     dateOfRegistration: 'Date of registration',
@@ -106,5 +103,11 @@ export default {
   status: {
     ACCEPTED: 'Accepted',
     DECLINED: 'Declined'
+  },
+  error: {
+    PENDING_APPLICATION_EXISTS: 'You already have a pending application',
+    APPLICATION_STATUS_ALREADY_SET: 'Someone has already updated the status for this application',
+    COMPETENCE_PARAMETERS_INVALID: 'You need at least one competence',
+    AVAILABILITY_PARAMETERS_INVALID: 'You need at least one availability'
   }
 }

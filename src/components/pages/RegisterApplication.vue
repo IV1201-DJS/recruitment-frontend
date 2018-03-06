@@ -151,12 +151,9 @@ export default {
         this.$store.dispatch('displaySuccessMessage', this.$t('validate.success'))
         this.$router.push('/')
       } catch (error) {
-        if (error.message === 'GraphQL error: PENDING_APPLICATION_EXISTS') {
-          this.$store.dispatch('displayError', this.$t('validate.error.pending'))
-        } else {
-          this.$store.dispatch('displayError', error.message)
-          console.dir(error)
-        }
+        error.graphQLErrors.forEach(error => {
+          this.$store.dispatch('displayError', this.$t(`error.${error.message}`))
+        })
       }
 
       this.loading = false
