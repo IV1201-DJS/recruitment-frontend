@@ -79,7 +79,7 @@ export default {
     years: 'years',
     verifyApplication: 'Verify application',
     back: 'Back',
-    continue: 'Fortsätt',
+    continue: 'Continue',
     send: 'Send'
   },
   availability: {
