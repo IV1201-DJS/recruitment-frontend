@@ -29,9 +29,7 @@ export default new Vuex.Store({
      * @param {*} role
      */
     updateRole (state, role) {
-      state.role = {
-        id: parseInt(role.id)
-      }
+      state.role = parseInt(role)
     },
     /**
      * Updates if the settings are active or not.

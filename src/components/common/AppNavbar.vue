@@ -95,10 +95,10 @@ export default {
       'role'
     ]),
     isRecruiter () {
-      return this.role.id >= 2
+      return this.role >= 2
     },
     isApplicant () {
-      return this.role.id === 1
+      return this.role === 1
     }
   },
   methods: {

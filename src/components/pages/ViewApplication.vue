@@ -9,7 +9,7 @@
         <div class="headline mr-3">{{ $t('userApplication.status') }}:</div>
 
         <v-select
-          :items="statuses"
+          :items="AllApplicationStatuses"
           item-text="name"
           item-value="id"
           v-model="currentStatus"
@@ -31,7 +31,7 @@ export default {
   components: { ApplicationSummary },
   data: () => ({
     Application: {},
-    statuses: [],
+    AllApplicationStatuses: [],
     currentStatus: 1
   }),
   computed: {
@@ -41,11 +41,18 @@ export default {
   },
   watch: {
     Application (newApplication) {
+      if (!newApplication.status) return
+
       this.currentStatus = newApplication.status.id
+    },
+    currentStatus (newStatus) {
+      if (!newStatus) return
+
+      this.updateApplicationStatus(newStatus)
     }
   },
   methods: {
-    async updateApplicationStatus () {
+    async updateApplicationStatus (newStatus) {
       try {
         await this.$apollo.mutate({
           mutation: gql`mutation ($application_id: ID!, $new_status: ID!) {
@@ -54,7 +61,8 @@ export default {
             }
           }`,
           variables: {
-            application_id: this.applicationId
+            application_id: this.applicationId,
+            new_status: newStatus
           }
         })
       } catch (e) {
@@ -63,6 +71,14 @@ export default {
     }
   },
   apollo: {
+    AllApplicationStatuses: {
+      query: gql`query {
+        AllApplicationStatuses {
+          id
+          name
+        }
+      }`
+    },
     Application: {
       query: gql`query ($id: ID!) {
         Application (id: $id) {

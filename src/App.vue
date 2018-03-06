@@ -51,7 +51,11 @@ export default {
       }`,
       fetchPolicy: 'cache-and-network',
       result ({ data }) {
-        this.$store.commit('updateRole', data.CurrentUser.role)
+        if (data) {
+          this.$store.commit('updateRole', data.CurrentUser.role.id)
+        } else {
+          this.$store.commit('updateRole', -1)
+        }
       }
     }
   },
