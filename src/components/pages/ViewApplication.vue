@@ -20,10 +20,13 @@
 
     <application-summary :competences="Application.user.competences"
                          :availabilities="this.Application.user.availabilities" />
+
+    <v-btn @click="createPdf">Generate PDF</v-btn>
   </v-container>
 </template>
 <script>
 import gql from 'graphql-tag'
+import JsPDF from 'jspdf'
 
 import ApplicationSummary from './subpages/ApplicationSummary'
 
@@ -52,6 +55,43 @@ export default {
     }
   },
   methods: {
+    createPdf () {
+      // Landscape export, 2×4 inches
+      const doc = new JsPDF({
+        unit: 'cm'
+      })
+
+      const firstName = this.Application.user.firstname
+      const lastName = this.Application.user.lastname
+      const fullName = `${firstName} ${lastName}`
+      const applicant = this.$t('userApplication.applicant')
+      doc.text(`${applicant}: ${fullName}`, 1, 1)
+
+      const competencesText = this.$t('competence.competences')
+      doc.text(`${competencesText}:`, 1, 2)
+      const experienceText = this.$t('competence.experience')
+      const yearsText = this.$t('competence.years')
+      doc.text(`${experienceText}:`, 10, 2)
+
+      let i = 3
+      for (let competence of this.Application.user.competences) {
+        doc.text(`${competence.name}`, 1, i)
+        doc.text(`${competence.experience_years} ${yearsText}`, 10, i++)
+      }
+
+      const availabilityText = this.$t('availability.title')
+      const fromText = this.$t('availability.fromDate')
+      const toText = this.$t('availability.toDate')
+
+      doc.text(`${availabilityText}:`, 1, i++)
+
+      for (let availability of this.Application.user.availabilities) {
+        doc.text(`${fromText}: ${availability.from}`, 1, i)
+        doc.text(`${toText}: ${availability.to}`, 10, i++)
+      }
+
+      doc.save(`${firstName}-${lastName}-${applicant}.pdf`)
+    },
     async updateApplicationStatus (newStatus) {
       try {
         await this.$apollo.mutate({
@@ -95,6 +135,7 @@ export default {
             }
             competences {
               id
+              name
               experience_years
             }
           }
