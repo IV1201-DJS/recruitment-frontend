@@ -14,27 +14,27 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title><span v-t="'navbar.home'" /></v-list-tile-title>
+            <v-list-tile-title>{{ $t('navbar.home') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile :to="{ name: 'RegisterApplication' }">
+        <v-list-tile v-if="isApplicant" :to="{ name: 'RegisterApplication' }">
           <v-list-tile-action>
             <v-icon>contact_mail</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title><span v-t="'navbar.registerApplication'" /></v-list-tile-title>
+            <v-list-tile-title>{{ $t('navbar.registerApplication') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-list-tile :to="{ name: 'SearchApplication' }">
+        <v-list-tile v-if="isRecruiter" :to="{ name: 'SearchApplication' }">
           <v-list-tile-action>
             <v-icon>contact_mail</v-icon>
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title><span v-t="'navbar.applications'" /></v-list-tile-title>
+            <v-list-tile-title>{{ $t('navbar.applications') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -44,7 +44,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title><span v-t="'navbar.settings'" /></v-list-tile-title>
+            <v-list-tile-title>{{ $t('navbar.settings') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -54,7 +54,7 @@
           </v-list-tile-action>
 
           <v-list-tile-content>
-            <v-list-tile-title><span v-t="'navbar.logout'" /></v-list-tile-title>
+            <v-list-tile-title>{{ $t('navbar.logout') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
 
@@ -62,7 +62,7 @@
     </v-navigation-drawer>
 
     <v-toolbar fixed app dark color="primary">
-      <v-toolbar-title v-t="'navbar.brandName'"></v-toolbar-title>
+      <v-toolbar-title v-t="'navbar.brandName'" />
 
       <v-spacer />
 
@@ -70,10 +70,14 @@
 
       <v-toolbar-items class="hidden-sm-and-down" v-if="loggedIn">
         <v-btn flat :to="{ name: 'Home' }" exact><span v-t="'navbar.home'" /></v-btn>
-        <v-btn flat :to="{ name: 'RegisterApplication' }"><span v-t="'navbar.registerApplication'" /></v-btn>
-        <v-btn flat :to="{ name: 'SearchApplication' }"><span v-t="'navbar.applications'" /></v-btn>
-        <v-btn flat @click="settings"><span v-t="'navbar.settings'" /></v-btn>
-        <v-btn flat @click="logout"><span v-t="'navbar.logout'" /></v-btn>
+
+        <v-btn flat v-if="isApplicant" :to="{ name: 'RegisterApplication' }">{{ $t('navbar.registerApplication') }}</v-btn>
+
+        <v-btn flat v-if="isRecruiter" :to="{ name: 'SearchApplication' }">{{ $t('navbar.applications') }}</v-btn>
+
+        <v-btn flat @click="settings">{{ $t('navbar.settings') }}</v-btn>
+
+        <v-btn flat @click="logout">{{ $t('navbar.logout') }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
   </v-layout>
@@ -85,6 +89,18 @@ export default {
   data: () => ({
     drawer: null
   }),
+  computed: {
+    ...mapState([
+      'loggedIn',
+      'role'
+    ]),
+    isRecruiter () {
+      return this.role.id >= 2
+    },
+    isApplicant () {
+      return this.role.id === 1
+    }
+  },
   methods: {
     landingPage () {
       this.$router.push('/')
@@ -97,10 +113,7 @@ export default {
     settings () {
       this.$store.commit('updateSettingsActive', true)
     }
-  },
-  computed: mapState([
-    'loggedIn'
-  ])
+  }
 }
 </script>
 <style lang="sass" scoped>

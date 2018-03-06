@@ -16,9 +16,23 @@ export default new Vuex.Store({
     },
     legacyUser: null,
     settingsActive: false,
-    competences: []
+    competences: [],
+    role: {
+      id: -1
+    }
   },
   mutations: {
+    /**
+     * Updates the role of the current user.
+     *
+     * @param {*} state
+     * @param {*} role
+     */
+    updateRole (state, role) {
+      state.role = {
+        id: parseInt(role.id)
+      }
+    },
     /**
      * Updates if the settings are active or not.
      *

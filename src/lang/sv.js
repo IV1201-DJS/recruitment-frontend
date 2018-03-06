@@ -99,6 +99,7 @@ export default {
     dateOfRegistration: 'Ansökningsdatum',
     viewProfile: 'Visa ansökan',
     applicant: 'Applikant',
-    status: 'Status'
+    status: 'Status',
+    changeStatus: 'Ändra status'
   }
 }

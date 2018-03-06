@@ -4,9 +4,7 @@
 
     <v-container fluid mt-5>
       <v-layout justify-center align-center>
-        <transition name="fade">
-          <router-view />
-        </transition>
+        <router-view />
       </v-layout>
     </v-container>
 
@@ -36,14 +34,25 @@ import Settings from '@/components/common/Settings'
 
 export default {
   components: { Navbar, AppFooter, Settings },
+  watch: {
+    loggedIn (loginStatus) {
+      this.$apollo.queries.CurrentUser.refresh()
+    }
+  },
   apollo: {
     // Issue a query to check if the user is logged in
     CurrentUser: {
       query: gql`query {
         CurrentUser {
-          username
+          role {
+            id
+          }
         }
-      }`
+      }`,
+      fetchPolicy: 'cache-and-network',
+      result ({ data }) {
+        this.$store.commit('updateRole', data.CurrentUser.role)
+      }
     }
   },
   computed: mapState([
@@ -52,16 +61,3 @@ export default {
   ])
 }
 </script>
-<style lang="sass" scoped>
-
-.fade-enter-active, .fade-leave-active
-  transition-property: opacity;
-  transition-duration: .25s;
-
-.fade-enter-active
-  transition-delay: .25s;
-
-.fade-enter, .fade-leave-active
-  opacity: 0
-
-</style>
