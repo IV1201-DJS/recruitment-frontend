@@ -102,5 +102,9 @@ export default {
     status: 'Status',
     changeStatus: 'Ändra status',
     generatePDF: 'Generera PDF'
+  },
+  status: {
+    ACCEPTED: 'Accepterad',
+    DECLINED: 'Nekad'
   }
 }

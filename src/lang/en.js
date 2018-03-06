@@ -102,5 +102,9 @@ export default {
     status: 'Status',
     changeStatus: 'Change status',
     generatePDF: 'Generate PDF'
+  },
+  status: {
+    ACCEPTED: 'Accepted',
+    DECLINED: 'Declined'
   }
 }

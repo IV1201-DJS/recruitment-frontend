@@ -9,7 +9,7 @@
         <div class="headline mr-3">{{ $t('userApplication.status') }}:</div>
 
         <v-select
-          :items="AllApplicationStatuses"
+          :items="ApplicationStatuses"
           item-text="name"
           item-value="id"
           v-model="currentStatus"
@@ -35,6 +35,7 @@ export default {
   data: () => ({
     Application: {},
     AllApplicationStatuses: [],
+    ApplicationStatuses: [],
     currentStatus: 1
   }),
   computed: {
@@ -43,6 +44,12 @@ export default {
     }
   },
   watch: {
+    AllApplicationStatuses (newApplicationStatus) {
+      this.ApplicationStatuses = newApplicationStatus.map(status => ({
+        id: status.id,
+        name: this.translateStatus(status.name)
+      }))
+    },
     Application (newApplication) {
       if (!newApplication.status) return
 
@@ -55,8 +62,12 @@ export default {
     }
   },
   methods: {
+    translateStatus (name) {
+      if (name === 'ACCEPTED') return this.$t('status.ACCEPTED')
+      else if (name === 'DECLINED') return this.$t('status.DECLINED')
+      else return 'INVALID'
+    },
     createPdf () {
-      // Landscape export, 2×4 inches
       const doc = new JsPDF({
         unit: 'cm'
       })
