@@ -100,6 +100,7 @@ export default {
     viewProfile: 'Visa ansökan',
     applicant: 'Applikant',
     status: 'Status',
-    changeStatus: 'Ändra status'
+    changeStatus: 'Ändra status',
+    generatePDF: 'Generera PDF'
   }
 }

@@ -100,6 +100,7 @@ export default {
     viewProfile: 'View application',
     applicant: 'Applicant',
     status: 'Status',
-    changeStatus: 'Change status'
+    changeStatus: 'Change status',
+    generatePDF: 'Generate PDF'
   }
 }

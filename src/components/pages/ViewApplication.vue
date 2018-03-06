@@ -21,7 +21,7 @@
     <application-summary :competences="Application.user.competences"
                          :availabilities="this.Application.user.availabilities" />
 
-    <v-btn @click="createPdf">Generate PDF</v-btn>
+    <v-btn @click="createPdf" color="success">{{ $t('userApplication.generatePDF') }}</v-btn>
   </v-container>
 </template>
 <script>
