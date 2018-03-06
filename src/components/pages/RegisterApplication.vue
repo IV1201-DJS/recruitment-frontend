@@ -139,12 +139,14 @@ export default {
               }
             }
           }`,
-          variables: {
-            competences: this.competences,
-            availabilities: this.availabilities.map(av => ({
-              from: av.from,
-              to: av.to
-            }))
+          variables () {
+            return {
+              competences: this.competences,
+              availabilities: this.availabilities.map(av => ({
+                from: av.from,
+                to: av.to
+              }))
+            }
           }
         })
 
