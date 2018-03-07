@@ -27,7 +27,7 @@
                 @keyup.enter="login"
               />
 
-              <v-btn color="primary" @click="login" :loading="loginLoading" :disabled="loginDisabled">
+              <v-btn color="primary" @click="login" :loading="loginLoading" :disabled="loginDisabled" id="loginButton">
                 <span v-t="'login.title'" />
               </v-btn>
 

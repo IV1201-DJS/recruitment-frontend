@@ -10,7 +10,7 @@
       >
         <v-card tile>
           <v-toolbar card dark color="primary">
-            <v-btn icon @click="closeSettings" dark>
+            <v-btn icon @click="closeSettings" dark id="closeSettingsButton">
               <v-icon>close</v-icon>
             </v-btn>
 

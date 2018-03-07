@@ -12,7 +12,7 @@
           <competence-picker />
         </v-card>
 
-        <v-btn color="primary" @click.native="e6 = 2" :disabled="competenceNextDisabled">{{ $t('competence.continue') }}</v-btn>
+        <v-btn color="primary" @click.native="e6 = 2" :disabled="competenceNextDisabled" id="continueFromCompetencesButton">{{ $t('competence.continue') }}</v-btn>
       </v-stepper-content>
 
       <v-stepper-step step="2" v-bind:complete="e6 > 2">
@@ -29,11 +29,12 @@
             <availability-picker v-on:fromDateChange="fromDateChange($event, index)"
                                  v-on:toDateChange="toDateChange($event, index)"
                                  :initFromDate="availability.from"
-                                 :initToDate="availability.to" />
+                                 :initToDate="availability.to"
+                                 />
           </v-layout>
         </v-card>
 
-        <v-btn color="primary" @click.native="e6 = 3" :disabled="availableNextDisabled">{{ $t('competence.continue') }}</v-btn>
+        <v-btn color="primary" @click.native="e6 = 3" :disabled="availableNextDisabled" id="continueFromAvailButton">{{ $t('competence.continue') }}</v-btn>
         <v-btn flat @click.native="e6 = 1">{{ $t('competence.back') }}</v-btn>
       </v-stepper-content>
 
@@ -43,7 +44,7 @@
       <v-stepper-content step="3">
         <application-summary :competences="competences" :availabilities="availabilitiesWithoutPicker" />
 
-        <v-btn color="success" @click="sendApplication" :loading="loading">{{ $t('competence.send')}}</v-btn>
+        <v-btn color="success" @click="sendApplication" :loading="loading" id="sendApplicationButton">{{ $t('competence.send')}}</v-btn>
         <v-btn flat @click.native="e6 = 2">{{ $t('competence.back') }}</v-btn>
       </v-stepper-content>
     </v-stepper>

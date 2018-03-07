@@ -27,6 +27,7 @@
           step=0.1
           :suffix="$t('competence.years')"
           :disabled="!editable"
+          id="experience_years"
         />
       </v-flex>
     </v-layout>

@@ -12,6 +12,7 @@
           item-text="name"
           item-value="id"
           v-model="selectedCompetences"
+          id="pickCompetence"
         ></v-select>
       </v-flex>
     </v-layout>

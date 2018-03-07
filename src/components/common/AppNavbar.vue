@@ -71,13 +71,13 @@
       <v-toolbar-items class="hidden-sm-and-down" v-if="loggedIn">
         <v-btn flat :to="{ name: 'Home' }" exact><span v-t="'navbar.home'" /></v-btn>
 
-        <v-btn flat v-if="isApplicant" :to="{ name: 'RegisterApplication' }">{{ $t('navbar.registerApplication') }}</v-btn>
+        <v-btn flat v-if="isApplicant" :to="{ name: 'RegisterApplication' }" id="registerApplicationButton">{{ $t('navbar.registerApplication') }}</v-btn>
 
-        <v-btn flat v-if="isRecruiter" :to="{ name: 'SearchApplication' }">{{ $t('navbar.applications') }}</v-btn>
+        <v-btn flat v-if="isRecruiter" :to="{ name: 'SearchApplication' }" id="searchApplicationButton">{{ $t('navbar.applications') }}</v-btn>
 
-        <v-btn flat @click="settings">{{ $t('navbar.settings') }}</v-btn>
+        <v-btn flat @click="settings" id="settingsButton">{{ $t('navbar.settings') }}</v-btn>
 
-        <v-btn flat @click="logout">{{ $t('navbar.logout') }}</v-btn>
+        <v-btn flat @click="logout" id="logoutButton">{{ $t('navbar.logout') }}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
   </v-layout>

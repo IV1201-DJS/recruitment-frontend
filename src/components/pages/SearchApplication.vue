@@ -6,11 +6,13 @@
                          v-on:toDateChange="toDateChange($event)" />
 
     <date-picker :label="$t('userApplication.dateOfRegistration')"
-                 v-on:dateChange="regDateChange($event)"/>
+                 v-on:dateChange="regDateChange($event)"
+                 id="dateOfRegPicker"/>
 
     <v-text-field
       :label="$t('user.name')"
       v-model="name"
+      id="nameInputField"
     />
 
     <user-application v-for="application in Applications.data"

@@ -18,6 +18,7 @@
       :right="snackbar.right"
       :left="snackbar.left"
       v-model="snackbar.visible"
+      id="snackbar"
     >{{ snackbar.message }}</v-snackbar>
 
     <settings />

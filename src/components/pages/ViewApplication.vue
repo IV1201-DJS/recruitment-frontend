@@ -2,7 +2,7 @@
   <v-container fluid v-if="!$apollo.loading">
     <v-card class="mb-5">
       <v-card-title primary-title>
-        <div class="headline">{{ $t('userApplication.applicant') }}: {{ Application.user.firstname }} {{ Application.user.lastname }}</div>
+        <div class="headline" id="applicant">{{ $t('userApplication.applicant') }}: {{ Application.user.firstname }} {{ Application.user.lastname }}</div>
 
         <v-spacer />
 
@@ -22,7 +22,7 @@
     <application-summary :competences="Application.user.competences"
                          :availabilities="this.Application.user.availabilities" />
 
-    <v-btn @click="createPdf" color="success">{{ $t('userApplication.generatePDF') }}</v-btn>
+    <v-btn @click="createPdf" color="success" id="createPDF">{{ $t('userApplication.generatePDF') }}</v-btn>
   </v-container>
 </template>
 <script>

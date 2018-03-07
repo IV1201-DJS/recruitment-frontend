@@ -23,7 +23,7 @@
       <v-spacer />
 
       <v-btn flat color="primary" @click="dateMenu = false">{{ $t('availability.cancel') }}</v-btn>
-      <v-btn flat color="primary" @click="$refs.dateMenu.save(date);dateChange(date)">{{ $t('availability.ok') }}</v-btn>
+      <v-btn flat color="primary" @click="$refs.dateMenu.save(date);dateChange(date)" id="datePickerOKButton">{{ $t('availability.ok') }}</v-btn>
     </v-date-picker>
   </v-menu>
 </template>

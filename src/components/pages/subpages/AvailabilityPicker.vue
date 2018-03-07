@@ -5,7 +5,8 @@
                    v-on:dateChange="fromDateChange($event)"
                    :initDate="initFromDate"
                    :min="today"
-                   :max="toDate" />
+                   :max="toDate"
+                   id="fromPicker" />
     </v-flex>
 
     <v-spacer />
@@ -14,7 +15,8 @@
       <date-picker :label="$t('availability.toDate')"
                    v-on:dateChange="toDateChange($event)"
                    :initDate="initToDate"
-                   :min="fromDate" />
+                   :min="fromDate"
+                   id="toPicker" />
     </v-flex>
   </v-layout>
 </template>

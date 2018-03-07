@@ -11,6 +11,7 @@
           autocomplete
           @change="competenceChange"
           ref="competenceSelect"
+          id="compPicker"
         />
       </v-flex>
     </v-layout>
