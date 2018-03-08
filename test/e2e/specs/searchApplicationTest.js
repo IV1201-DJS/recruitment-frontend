@@ -81,5 +81,6 @@ module.exports = {
 
       .pause(1000)
       .assert.containsText('div[class=headline]', 'Test Testsson')
+      .end()
   }
 }
