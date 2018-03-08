@@ -24,7 +24,7 @@ export const errorLink = onError(({ networkError }) => {
 
 export const headerLang = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
-  const lang = localStorage.locale || 'en'
+  const lang = localStorage.locale || 'en'
   // return the headers to the context so httpLink can read them
   return {
     headers: {
