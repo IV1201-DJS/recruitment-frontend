@@ -60,8 +60,11 @@
 
               <v-btn color="success" :to="{ name: 'Login' }" v-t="'register.back'" />
 
-              <v-btn color="primary" @click="register" :loading="registerLoading" :disabled="registerDisabled">
-                <span v-t="'register.register'" />
+              <v-btn color="primary"
+                     @click="register"
+                     :loading="registerLoading"
+                     :disabled="registerDisabled">
+                {{ $t('register.register') }}
               </v-btn>
             </v-form>
           </v-card-text>

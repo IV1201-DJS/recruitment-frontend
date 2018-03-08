@@ -75,26 +75,6 @@ export default {
     this.lastName = legacyUser.surname
     this.ssn = legacyUser.ssn
     this.username = legacyUser.username
-  },
-  computed: {
-    accountMigrationLocale () {
-      return this.$t('migration.title')
-    },
-    firstNameLocale () {
-      return this.$t('user.firstName')
-    },
-    lastNameLocale () {
-      return this.$t('user.lastName')
-    },
-    ssnLocale () {
-      return this.$t('user.ssn')
-    },
-    emailLocale () {
-      return this.$t('user.email')
-    },
-    usernameLocale () {
-      return this.$t('user.username')
-    }
   }
 }
 </script>
