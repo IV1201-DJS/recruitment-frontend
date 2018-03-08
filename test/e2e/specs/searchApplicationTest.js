@@ -10,9 +10,9 @@ module.exports = {
       .click('a[id=searchApplicationButton')
       .waitForElementVisible('div[class=headline]', 3000)
       .assert.elementPresent('input[id=nameInputField]')
-      .setValue('input[id=nameInputField]', 'Jorge Lambert')
+      .setValue('input[id=nameInputField]', 'Test Testsson')
       .pause(5000)
-      .assert.containsText('div[class=headline]', 'Jorge Lambert')
+      .assert.containsText('div[class=headline]', 'Test Testsson')
       .end()
 
   },
@@ -47,9 +47,9 @@ module.exports = {
       .waitForElementVisible('a[id=searchApplicationButton]', 1000)
       .click('a[id=searchApplicationButton')
       .pause(1000)
-      .setValue('input[id=pickCompetence]', ['Rober', client.Keys.ENTER])
+      .setValue('input[id=pickCompetence]', ['Test', client.Keys.ENTER])
       .pause(1000)
-      .assert.containsText('div[class=headline]', 'Jorge Lambert')
+      .assert.containsText('div[class=headline]', 'Test Testsson')
       .end()
   },
 
@@ -80,6 +80,6 @@ module.exports = {
       .click('button[id=datePickerOKButton]')
 
       .pause(1000)
-      .assert.containsText('div[class=headline]', 'Jorge Lambert')
+      .assert.containsText('div[class=headline]', 'Test Testsson')
   }
 }

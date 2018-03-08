@@ -9,6 +9,7 @@
     "start": "node webserver.js",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "yarn reset-db;node test/e2e/runner.js",
+    "e2enew": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",

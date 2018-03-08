@@ -13,7 +13,6 @@ module.exports = {
       .click('//a[contains(@href,"/application/view/1")]')
       .pause(5000)
       .assert.elementPresent('//*[@id="inspire"]/div[1]/div/ul/li[1]/a')
-      //.click('//*[@id="inspire"]/div[1]/div/ul/li[1]/a')
       .useCss()
       .waitForElementVisible('div[id=applicant]', 3000)
       .assert.elementPresent('button[id=createPDF]')

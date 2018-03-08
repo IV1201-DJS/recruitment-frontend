@@ -91,6 +91,9 @@ export default {
     ]),
     availabilitiesWithoutPicker () {
       return this.availabilities.filter(av => av.from && av.to)
+    },
+    finalAvailabilities () {
+      return this.availabilities.filter(av => av.from !== '' && av.to !== '')
     }
   },
   watch: {
@@ -142,7 +145,7 @@ export default {
           }`,
           variables: {
             competences: this.competences,
-            availabilities: this.availabilities.map(av => ({
+            availabilities: this.finalAvailabilities.map(av => ({
               from: av.from,
               to: av.to
             }))

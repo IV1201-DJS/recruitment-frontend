@@ -1,18 +1,22 @@
 module.exports = {
-  'List Application Test' : function (client) {
+  'Apply Test' : function (client) {
     client
       .url('http://0.0.0.0:8080/login')
       .waitForElementVisible('body', 1000)
-      .setValue('input[type=text][aria-label=Username]', 'applicant')
-      .setValue('input[type=password][aria-label=Password]', 'hej123')
+      .setValue('input[type=text][aria-label=Username]', 'username')
+      .setValue('input[type=password][aria-label=Password]', 'password')
       .pause(1000)
-      .click('button[id=loginButton')
+      .click('button[id=loginButton]')
       .waitForElementVisible('a[id=registerApplicationButton]', 1000)
+      .assert.elementPresent('a[id=registerApplicationButton', 'Asserting the Register Application Button is present')
       .click('a[id=registerApplicationButton')
+      .waitForElementVisible('input[id=compPicker]', 1000, 'Waiting for the Input field of competences to be visible')
+      //.click('input[id=compPicker]')
+      //.setValue('input[id=compPicker]', ['Test', client.Keys.ENTER])
       .click('input[id=compPicker]')
-      .clickElementWithText('a', 'Robertson')
+      .clickElementWithText('a', 'TESTCOMPETENCE')
       .click('button[id=continueFromCompetencesButton')
-      .pause(1000)
+      .pause(5000)
       .useXpath()
       .click('//*[@id="fromPicker"]/div/div/div[1]/input')
       .assert.elementPresent('//button[@class="btn btn--flat btn--floating btn--outline accent--text"]')
