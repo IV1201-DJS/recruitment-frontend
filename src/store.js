@@ -227,13 +227,13 @@ export default new Vuex.Store({
         }
       }
     },
-    async restorePassword ( {commit, dispatch}, userEmail) {
+    async restorePassword ({commit, dispatch}, userEmail) {
       try {
         const response = await axios.post('/api/restore-password', userEmail)
-        dispatch('displaySuccessMessage', i18n.t('restore.success') + response.data.emailed) 
+        dispatch('displaySuccessMessage', i18n.t('restore.success') + response.data.emailed)
       } catch (e) {
-          const { status, data } = e.response
-          dispatch('displayError', data) 
+        const { data } = e.response
+        dispatch('displayError', data)
       }
     },
     /**

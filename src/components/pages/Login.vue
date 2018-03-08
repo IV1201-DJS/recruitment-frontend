@@ -45,6 +45,11 @@
                      v-if="!migrationDisabled">
                 {{ $t('migration.oldUserText') }}
               </v-btn>
+
+              <v-btn color="primary"
+                     :to="{ name: 'ForgottenPassword' }">
+                {{ $t('forgotten.title') }}
+              </v-btn>
             </v-form>
           </v-card-text>
         </v-card>

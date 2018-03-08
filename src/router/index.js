@@ -8,6 +8,7 @@ import SearchApplication from '@/components/pages/SearchApplication'
 import ViewApplication from '@/components/pages/ViewApplication'
 import AccountMigration from '@/components/pages/AccountMigration'
 import Home from '@/components/pages/Home'
+import ForgottenPassword from '@/components/pages/ForgottenPassword'
 
 Vue.use(Router)
 
@@ -48,6 +49,11 @@ export default new Router({
       path: '/migrate',
       name: 'AccountMigration',
       component: AccountMigration
+    },
+    {
+      path: '/forgotten',
+      name: 'ForgottenPassword',
+      component: ForgottenPassword
     }
   ]
 })

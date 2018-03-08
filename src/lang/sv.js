@@ -14,6 +14,10 @@ export default {
     },
     invalid: 'Fel användarnamn eller lösenord'
   },
+  forgotten: {
+    title: 'Glömt lösenord',
+    send: 'Skicka'
+  },
   migration: {
     mustUpdate: 'Ditt konto saknar kritisk information.',
     title: 'Kontomigration',

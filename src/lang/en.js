@@ -14,6 +14,10 @@ export default {
     },
     invalid: 'The username or password was incorrect'
   },
+  forgotten: {
+    title: 'Forgotten password',
+    send: 'Send'
+  },
   migration: {
     mustUpdate: 'Your account is missing critical information.',
     title: 'Account migration',
