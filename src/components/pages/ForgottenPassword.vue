@@ -8,18 +8,17 @@
           </v-toolbar>
 
           <v-card-text>
-            <v-form>
-              <v-text-field
-                :label="$t('user.email')"
-                v-model="email"
-                :error-messages="errors.email"
-              />
+            <v-text-field
+              :label="$t('user.email')"
+              v-model="email"
+              :error-messages="errors.email"
+              @keyup.enter="restorePassword"
+            />
 
-              <v-btn color="primary"
-                     @click="sendForgotten">
-                {{ $t('forgotten.send') }}
-              </v-btn>
-            </v-form>
+            <v-btn color="primary"
+                    @click="restorePassword">
+              {{ $t('forgotten.send') }}
+            </v-btn>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -35,8 +34,13 @@ export default {
     }
   }),
   methods: {
-    async sendForgotten () {
-      console.log(this.email)
+    async restorePassword () {
+      try {
+        await this.$store.dispatch('restorePassword', {
+          email: this.email
+        })
+        this.$router.push('/login')
+      } catch (e) {}
     }
   }
 }

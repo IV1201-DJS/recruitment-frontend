@@ -8,32 +8,30 @@
           </v-toolbar>
 
           <v-card-text>
-            <v-form>
-              <v-text-field
-                :label="$t('user.email')"
-                v-model="email"
-                :error-messages="errors.email"
-              />
-              <v-text-field
-                :label="$t('user.firstname')"
-                v-model="name"
-                :error-messages="errors.name"
-              />
-              <v-text-field
-                :label="$t('user.lastname')"
-                v-model="surname"
-                :error-messages="errors.surname"
-              />
-              <v-text-field
-                :label="$t('user.ssn')"
-                v-model="ssn"
-                :error-messages="errors.ssn"
-              />
+            <v-text-field
+              :label="$t('user.email')"
+              v-model="email"
+              :error-messages="errors.email"
+            />
+            <v-text-field
+              :label="$t('user.firstname')"
+              v-model="name"
+              :error-messages="errors.name"
+            />
+            <v-text-field
+              :label="$t('user.lastname')"
+              v-model="surname"
+              :error-messages="errors.surname"
+            />
+            <v-text-field
+              :label="$t('user.ssn')"
+              v-model="ssn"
+              :error-messages="errors.ssn"
+            />
 
-              <v-btn color="primary" @click="migrate">
-                {{ $t('migration.migrate') }}
-              </v-btn>
-            </v-form>
+            <v-btn color="primary" @click="migrate">
+              {{ $t('migration.migrate') }}
+            </v-btn>
           </v-card-text>
         </v-card>
       </v-flex>

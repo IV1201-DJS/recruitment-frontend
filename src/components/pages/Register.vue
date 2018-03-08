@@ -8,65 +8,63 @@
           </v-toolbar>
 
           <v-card-text>
-            <v-form>
-              <v-text-field
-                :label="$t('user.firstname')"
-                v-model="firstname"
-                :error-messages="errors.firstname"
-                @input="resetFirstnameErrors"
-              />
-              <v-text-field
-                :label="$t('user.lastname')"
-                v-model="lastname"
-                :error-messages="errors.lastname"
-                @input="resetLastnameErrors"
-              />
-              <v-text-field
-                :label="$t('user.ssn')"
-                v-model="ssn"
-                :error-messages="errors.ssn"
-                @input="resetSSNErrors"
-              />
-              <v-text-field
-                :label="$t('user.email')"
-                v-model="email"
-                :error-messages="errors.email"
-                @input="resetEmailErrors"
-              />
-              <v-text-field
-                :label="$t('user.username')"
-                v-model="username"
-                :error-messages="errors.username"
-                @input="resetUsernameErrors"
-              />
-              <v-text-field
-                :label="$t('user.password')"
-                v-model="password"
-                :error-messages="errors.password"
-                @input="resetPasswordErrors"
-                :append-icon="e1 ? 'visibility' : 'visibility_off'"
-                :append-icon-cb="() => (e1 = !e1)"
-                :type="e1 ? 'password' : 'text'"
-              />
-              <v-text-field
-                :label="$t('register.password_confirm')"
-                v-model="passwordConfirm"
-                :error-messages="errors.passwordConfirm"
-                @input="validatePassword"
-                :append-icon="e1 ? 'visibility' : 'visibility_off'"
-                :append-icon-cb="() => (e1 = !e1)"
-                :type="e1 ? 'password' : 'text'"
-              />
+            <v-text-field
+              :label="$t('user.firstname')"
+              v-model="firstname"
+              :error-messages="errors.firstname"
+              @input="resetFirstnameErrors"
+            />
+            <v-text-field
+              :label="$t('user.lastname')"
+              v-model="lastname"
+              :error-messages="errors.lastname"
+              @input="resetLastnameErrors"
+            />
+            <v-text-field
+              :label="$t('user.ssn')"
+              v-model="ssn"
+              :error-messages="errors.ssn"
+              @input="resetSSNErrors"
+            />
+            <v-text-field
+              :label="$t('user.email')"
+              v-model="email"
+              :error-messages="errors.email"
+              @input="resetEmailErrors"
+            />
+            <v-text-field
+              :label="$t('user.username')"
+              v-model="username"
+              :error-messages="errors.username"
+              @input="resetUsernameErrors"
+            />
+            <v-text-field
+              :label="$t('user.password')"
+              v-model="password"
+              :error-messages="errors.password"
+              @input="resetPasswordErrors"
+              :append-icon="e1 ? 'visibility' : 'visibility_off'"
+              :append-icon-cb="() => (e1 = !e1)"
+              :type="e1 ? 'password' : 'text'"
+            />
+            <v-text-field
+              :label="$t('register.password_confirm')"
+              v-model="passwordConfirm"
+              :error-messages="errors.passwordConfirm"
+              @input="validatePassword"
+              :append-icon="e1 ? 'visibility' : 'visibility_off'"
+              :append-icon-cb="() => (e1 = !e1)"
+              :type="e1 ? 'password' : 'text'"
+            />
 
-              <v-btn color="success" :to="{ name: 'Login' }" v-t="'register.back'" />
+            <v-btn color="success" :to="{ name: 'Login' }" v-t="'register.back'" />
 
-              <v-btn color="primary"
-                     @click="register"
-                     :loading="registerLoading"
-                     :disabled="registerDisabled">
-                {{ $t('register.register') }}
-              </v-btn>
-            </v-form>
+            <v-btn color="primary"
+                    @click="register"
+                    :loading="registerLoading"
+                    :disabled="registerDisabled">
+              {{ $t('register.register') }}
+            </v-btn>
           </v-card-text>
         </v-card>
       </v-flex>

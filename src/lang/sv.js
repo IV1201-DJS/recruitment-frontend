@@ -15,7 +15,7 @@ export default {
     invalid: 'Fel användarnamn eller lösenord'
   },
   forgotten: {
-    title: 'Glömt lösenord',
+    title: 'Gammal användare och glömt lösenord?',
     send: 'Skicka'
   },
   migration: {
@@ -120,7 +120,8 @@ export default {
     PENDING_APPLICATION_EXISTS: 'Du har redan en pågående ansökan',
     APPLICATION_STATUS_ALREADY_SET: 'Någon har redan uppdaterat den här applikationen',
     COMPETENCE_PARAMETERS_INVALID: 'Du har inte angett någon kompetens',
-    AVAILABILITY_PARAMETERS_INVALID: 'Du har inte angett någon tillgänglighet'
+    AVAILABILITY_PARAMETERS_INVALID: 'Du har inte angett någon tillgänglighet',
+    EMAIL_NOT_FOUND: 'Det finns inget konto med en angivna mailadressen'
   },
   restore: {
     success: 'Ett mail har skickats till: '

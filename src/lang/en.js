@@ -15,7 +15,7 @@ export default {
     invalid: 'The username or password was incorrect'
   },
   forgotten: {
-    title: 'Forgotten password',
+    title: 'Older user and forgotten password?',
     send: 'Send'
   },
   migration: {
@@ -117,7 +117,8 @@ export default {
     PENDING_APPLICATION_EXISTS: 'You already have a pending application',
     APPLICATION_STATUS_ALREADY_SET: 'Someone has already updated the status for this application',
     COMPETENCE_PARAMETERS_INVALID: 'You need at least one competence',
-    AVAILABILITY_PARAMETERS_INVALID: 'You need at least one availability'
+    AVAILABILITY_PARAMETERS_INVALID: 'You need at least one availability',
+    EMAIL_NOT_FOUND: 'A user with the provided email does not exist'
   },
   restore: {
     success: 'An email has been sent to: '

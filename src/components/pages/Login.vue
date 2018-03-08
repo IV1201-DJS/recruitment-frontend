@@ -47,6 +47,7 @@
               </v-btn>
 
               <v-btn color="primary"
+                     v-if="!migrationDisabled"
                      :to="{ name: 'ForgottenPassword' }">
                 {{ $t('forgotten.title') }}
               </v-btn>

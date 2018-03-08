@@ -233,7 +233,8 @@ export default new Vuex.Store({
         dispatch('displaySuccessMessage', i18n.t('restore.success') + response.data.emailed)
       } catch (e) {
         const { data } = e.response
-        dispatch('displayError', data)
+        dispatch('displayError', i18n.t(`error.${data.error}`))
+        throw e.response
       }
     },
     /**
