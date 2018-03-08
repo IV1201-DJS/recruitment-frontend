@@ -1,9 +1,9 @@
 // @ts-check
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 
 import i18n from './lang/i18n'
+import axios from './axios'
 
 Vue.use(Vuex)
 
