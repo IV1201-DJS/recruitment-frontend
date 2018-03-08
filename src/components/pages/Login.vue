@@ -1,34 +1,39 @@
 <template>
-  <v-container grid-list-xl mt-5>
+  <v-container fluid>
     <v-layout row>
       <v-flex sm10 offset-sm1 text-xs-right>
         <v-card>
           <v-toolbar color="indigo" dark>
-            <v-toolbar-title v-t="'message.login'" />
+            <v-toolbar-title v-t="'login.title'" />
           </v-toolbar>
 
           <v-card-text>
             <v-form>
               <v-text-field
-                :label="usernameLocale"
+                :label="$t('user.username')"
                 v-model="username"
-                :error-messages="errors.collect(usernameLocale)"
-                v-validate="'required'"
-                :data-vv-name="usernameLocale"
+                :error-messages="errors.username"
+                @input="resetUsernameFieldErrors"
+                @keyup.enter="login"
               />
               <v-text-field
-                :label="passwordLocale"
+                :label="$t('user.password')"
                 v-model="password"
-                :error-messages="errors.collect(passwordLocale)"
-                v-validate="'required|min:6|max:32'"
-                :data-vv-name="passwordLocale"
+                :error-messages="errors.password"
                 :append-icon="e1 ? 'visibility' : 'visibility_off'"
                 :append-icon-cb="() => (e1 = !e1)"
                 :type="e1 ? 'password' : 'text'"
+                @input="resetPasswordFieldErrors"
                 @keyup.enter="login"
               />
 
-              <v-btn color="primary" @click="login" v-t="'message.login'" />
+              <v-btn color="primary" @click="login" :loading="loginLoading" :disabled="loginDisabled" id="loginButton">
+                <span v-t="'login.title'" />
+              </v-btn>
+
+              <v-btn color="success" :to="{ name: 'Register' }">
+                {{ $t('login.register') }}
+              </v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -37,36 +42,94 @@
   </v-container>
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data: () => ({
+    loginDisabled: true,
+    loginLoading: false,
     e1: true,
     username: '',
-    password: ''
-  }),
-  filters: {
-    lowerCase (data) {
-      return data.toLowerCase()
+    password: '',
+    timeout: 3000,
+    snackbar: false,
+    errors: {
+      username: [],
+      password: []
     }
-  },
-  computed: {
-    usernameLocale () {
-      return this.$t('user.username')
+  }),
+  computed: mapState([
+    'loggedIn'
+  ]),
+  watch: {
+    loggedIn: function (newState) {
+      const routerPath = this.$store.state.loginRedirect
+      this.$store.commit('updateLoginRedirect', '/')
+      this.$router.push(routerPath)
     },
-    passwordLocale () {
-      return this.$t('user.password')
+    username: function () {
+      this.checkLoginDisable()
+    },
+    password: function () {
+      this.checkLoginDisable()
     }
   },
   methods: {
+    checkLoginDisable () {
+      if (this.username === '') {
+        this.loginDisabled = true
+        return
+      }
+
+      if (this.password === '') {
+        this.loginDisabled = true
+        return
+      }
+
+      if (this.errors.username.length > 0) {
+        this.loginDisabled = true
+        return
+      }
+
+      if (this.errors.password.length > 0) {
+        this.loginDisabled = true
+        return
+      }
+
+      this.loginDisabled = false
+    },
+    resetUsernameFieldErrors () {
+      this.errors.username = []
+    },
+    resetPasswordFieldErrors () {
+      this.errors.password = []
+    },
     async login () {
-      const loggedIn = await this.$store.dispatch('login', {
-        username: this.username,
-        password: this.password
-      })
+      if (this.loginDisabled) return
 
-      // The user has sucessfully logged in
-      if (!loggedIn) return
+      try {
+        this.loginLoading = true
 
-      window.history.length > 2 ? this.$router.go(-1) : this.$router.push('/')
+        await this.$store.dispatch('login', {
+          username: this.username,
+          password: this.password
+        })
+      } catch (e) {
+        if (e === 409) {
+          this.$router.push('/migrate')
+
+          return
+        }
+
+        this.resetUsernameFieldErrors()
+        this.resetPasswordFieldErrors()
+
+        e.forEach(({ validation, field }) => {
+          this.errors[field].push(this.$t(`login.${validation}.${field}`))
+        })
+      }
+
+      this.loginLoading = false
     }
   }
 }

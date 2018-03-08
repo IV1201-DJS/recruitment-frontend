@@ -1,98 +1,68 @@
 <template>
-  <v-container grid-list-xl mt-5>
+  <v-container fluid>
     <v-layout row>
       <v-flex sm10 offset-sm1 text-xs-right>
         <v-card>
           <v-toolbar color="indigo" dark>
-            <v-toolbar-title v-t="'message.register'" />
+            <v-toolbar-title v-t="'register.title'" />
           </v-toolbar>
 
           <v-card-text>
             <v-form>
               <v-text-field
-                :label="firstNameLocale"
-                v-model="firstName"
-                :error-messages="errors.collect('firstName')"
-                v-validate="'required|min:2|max:32'"
-                :data-vv-name="firstNameLocale"
+                :label="$t('user.firstname')"
+                v-model="firstname"
+                :error-messages="errors.firstname"
+                @input="resetFirstnameErrors"
               />
               <v-text-field
-                :label="lastNameLocale"
-                v-model="lastName"
-                :error-messages="errors.collect(lastNameLocale)"
-                v-validate="'required|min:2|max:32'"
-                :data-vv-name="lastNameLocale"
+                :label="$t('user.lastname')"
+                v-model="lastname"
+                :error-messages="errors.lastname"
+                @input="resetLastnameErrors"
               />
               <v-text-field
-                label="E-mail"
+                :label="$t('user.ssn')"
+                v-model="ssn"
+                :error-messages="errors.ssn"
+                @input="resetSSNErrors"
+              />
+              <v-text-field
+                :label="$t('user.email')"
                 v-model="email"
-                :error-messages="errors.collect('email')"
-                v-validate="'required|email'"
-                data-vv-name="email"
+                :error-messages="errors.email"
+                @input="resetEmailErrors"
               />
-
-              <v-menu
-                lazy
-                :close-on-content-click="false"
-                v-model="dateOfBirthMenu"
-                transition="scale-transition"
-                offset-y
-                full-width
-                :nudge-right="40"
-                max-width="290px"
-                min-width="290px"
-              >
-                <v-text-field
-                  slot="activator"
-                  :label="dateOfBirthLocale"
-                  v-model="dateOfBirth"
-                  :error-messages="errors.collect(dateOfBirthLocale)"
-                  v-validate="'required'"
-                  prepend-icon="event"
-                  readonly
-                  :data-vv-name="dateOfBirthLocale"
-                />
-                <v-date-picker v-model="dateOfBirth" no-title scrollable actions :allowed-dates="allowedDates">
-                  <template slot-scope="{ save, cancel }">
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
-                      <v-btn flat color="primary" @click="save">OK</v-btn>
-                    </v-card-actions>
-                  </template>
-                </v-date-picker>
-              </v-menu>
-
               <v-text-field
-                :label="usernameLocale"
+                :label="$t('user.username')"
                 v-model="username"
-                :error-messages="errors.collect(usernameLocale)"
-                v-validate="'required|min:3|max:32'"
-                :data-vv-name="usernameLocale"
+                :error-messages="errors.username"
+                @input="resetUsernameErrors"
               />
               <v-text-field
-                :label="passwordLocale"
+                :label="$t('user.password')"
                 v-model="password"
-                :error-messages="errors.collect(passwordLocale)"
-                v-validate="'required|confirmed|min:6|max:32'"
-                :data-vv-name="passwordLocale"
+                :error-messages="errors.password"
+                @input="resetPasswordErrors"
                 :append-icon="e1 ? 'visibility' : 'visibility_off'"
                 :append-icon-cb="() => (e1 = !e1)"
                 :type="e1 ? 'password' : 'text'"
               />
               <v-text-field
-                :label="passwordConfirmationLocale"
-                v-model="password_confirmation"
-                :error-messages="errors.collect(passwordConfirmationLocale)"
-                v-validate="'required|min:6|max:32'"
-                data-vv-name="password confirmation"
-                :name="passwordConfirmationLocale"
-                :append-icon="e2 ? 'visibility' : 'visibility_off'"
-                :append-icon-cb="() => (e2 = !e2)"
-                :type="e2 ? 'password' : 'text'"
+                :label="$t('register.password_confirm')"
+                v-model="passwordConfirm"
+                :error-messages="errors.passwordConfirm"
+                @input="validatePassword"
+                :append-icon="e1 ? 'visibility' : 'visibility_off'"
+                :append-icon-cb="() => (e1 = !e1)"
+                :type="e1 ? 'password' : 'text'"
               />
 
-              <v-btn color="primary" @click="register" v-t="'message.register'" />
+              <v-btn color="success" :to="{ name: 'Login' }" v-t="'register.back'" />
+
+              <v-btn color="primary" @click="register" :loading="registerLoading" :disabled="registerDisabled">
+                <span v-t="'register.register'" />
+              </v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -104,41 +74,138 @@
 export default {
   data: () => ({
     e1: true,
-    e2: true,
-    firstName: '',
-    lastName: '',
-    email: '',
-    dateOfBirth: null,
-    dateOfBirthMenu: false,
+    registerDisabled: true,
+    registerLoading: false,
     username: '',
     password: '',
-    password_confirmation: ''
+    firstname: '',
+    lastname: '',
+    ssn: '',
+    email: '',
+    passwordConfirm: '',
+    errors: {
+      username: [],
+      password: [],
+      passwordConfirm: [],
+      firstname: [],
+      lastname: [],
+      ssn: [],
+      email: []
+    }
   }),
-  computed: {
-    firstNameLocale () {
-      return this.$t('user.firstName')
+  watch: {
+    username: function () {
+      this.checkRegisterDisable()
     },
-    lastNameLocale () {
-      return this.$t('user.lastName')
+    password: function () {
+      this.checkRegisterDisable()
     },
-    dateOfBirthLocale () {
-      return this.$t('user.dateOfBirth')
+    passwordConfirm: function () {
+      this.checkRegisterDisable()
     },
-    usernameLocale () {
-      return this.$t('user.username')
+    email: function () {
+      this.checkRegisterDisable()
     },
-    passwordLocale () {
-      return this.$t('user.password')
+    ssn: function () {
+      this.checkRegisterDisable()
     },
-    passwordConfirmationLocale () {
-      return this.$t('message.passwordConfirmation')
+    firstname: function () {
+      this.checkRegisterDisable()
+    },
+    lastname: function () {
+      this.checkRegisterDisable()
     }
   },
   methods: {
-    register () {
+    checkRegisterDisable () {
+      if (this.username === '' ||
+      this.password === '' ||
+      this.passwordConfirm === '' ||
+      this.email === '' ||
+      this.ssn === '' ||
+      this.firstname === '' ||
+      this.lastname === '') {
+        this.registerDisabled = true
+
+        return
+      }
+
+      const errors = this.errors
+
+      if (errors.username.length > 0 ||
+      errors.password.length > 0 ||
+      errors.passwordConfirm.length > 0 ||
+      errors.email.length > 0 ||
+      errors.ssn.length > 0 ||
+      errors.firstname.length > 0 ||
+      errors.lastname.length > 0) {
+        this.registerDisabled = true
+
+        return
+      }
+
+      this.registerDisabled = false
     },
-    allowedDates (date) {
-      return new Date(date) < new Date()
+    validatePassword () {
+      this.errors.passwordConfirm = []
+
+      if (this.passwordConfirm === '') {
+        this.errors.passwordConfirm.push(this.$t('register.required.password_confirm'))
+      }
+
+      if (this.password !== this.passwordConfirm) {
+        this.errors.passwordConfirm.push(this.$t('register.password_confirm_mismatch'))
+      }
+    },
+    resetUsernameErrors () {
+      this.errors.username = []
+    },
+    resetPasswordErrors () {
+      this.errors.password = []
+    },
+    resetFirstnameErrors () {
+      this.errors.firstname = []
+    },
+    resetLastnameErrors () {
+      this.errors.lastname = []
+    },
+    resetSSNErrors () {
+      this.errors.ssn = []
+    },
+    resetEmailErrors () {
+      this.errors.email = []
+    },
+    async register () {
+      try {
+        this.registerLoading = true
+
+        await this.$store.dispatch('register', {
+          username: this.username,
+          firstname: this.firstname,
+          lastname: this.lastname,
+          ssn: this.ssn,
+          email: this.email,
+          password: this.password
+        })
+
+        this.$router.push('/login')
+      } catch (e) {
+        this.resetUsernameErrors()
+        this.resetPasswordErrors()
+        this.resetFirstnameErrors()
+        this.resetLastnameErrors()
+        this.resetSSNErrors()
+        this.resetEmailErrors()
+
+        e.forEach(({ validation, field }) => {
+          this.errors[field].push(this.$t(`register.${validation}.${field}`))
+        })
+
+        this.validatePassword()
+        this.checkRegisterDisable()
+      }
+
+      this.registerLoading = false
     }
   }
 }

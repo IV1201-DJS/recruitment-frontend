@@ -1,6 +1,6 @@
 <template>
-  <v-footer class="pa-3">
+  <v-footer color="cyan">
     <v-spacer></v-spacer>
-    <div>© {{ new Date().getFullYear() }}</div>
+    <span class="white--text">&copy; 2018</span>
   </v-footer>
 </template>
