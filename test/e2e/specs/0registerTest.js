@@ -52,8 +52,7 @@ module.exports = {
       .setValue('input[type=text][aria-label="Email"]', 'mail@damails.se')
       .setValue('input[type=text][aria-label="Username"]', 'username')
       .setValue('input[type=password][aria-label="Password"]', 'password')
-      .useXpath()
-      .assert.attributeEquals("//form/button", 'disabled', 'true', 'Asserting attribute "disabled" of button equals true')
+      .assert.attributeEquals("div.card__text button", 'disabled', 'true', 'Asserting attribute "disabled" of button equals true')
       .end()
   }
 }
