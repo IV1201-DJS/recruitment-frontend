@@ -19,9 +19,22 @@ export default new Vuex.Store({
     competences: [],
     role: {
       id: -1
+    },
+    migrationData: {
+      username: '',
+      password: ''
     }
   },
   mutations: {
+    /**
+     * Saves migration data to the store.
+     *
+     * @param {*} state
+     * @param {*} migrationData
+     */
+    updateMigrationData (state, migrationData) {
+      state.migrationData = migrationData
+    },
     /**
      * Updates the role of the current user.
      *

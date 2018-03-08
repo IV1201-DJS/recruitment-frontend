@@ -17,7 +17,8 @@ export default {
   migration: {
     mustUpdate: 'Ditt konto saknar kritisk information.',
     title: 'Kontomigration',
-    migrate: 'Migrera'
+    migrate: 'Migrera',
+    oldUserText: 'Gammal användare?'
   },
   register: {
     back: 'Tillbaka',

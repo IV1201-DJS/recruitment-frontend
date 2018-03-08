@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "node webserver.js",
+    "start": "yarn build;node webserver.js",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "yarn reset-db;node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",

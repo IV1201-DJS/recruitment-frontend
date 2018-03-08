@@ -94,11 +94,14 @@ export default {
       'loggedIn',
       'role'
     ]),
+    isAdmin () {
+      return this.role === 3
+    },
     isRecruiter () {
-      return this.role >= 2
+      return this.role === 1 || this.isAdmin
     },
     isApplicant () {
-      return this.role === 1
+      return this.role === 2 || this.isAdmin
     }
   },
   methods: {
