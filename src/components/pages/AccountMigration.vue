@@ -16,26 +16,23 @@
               />
               <v-text-field
                 :label="$t('user.firstname')"
-                v-model="firstName"
-                :error-messages="errors.firstName"
+                v-model="name"
+                :error-messages="errors.name"
               />
               <v-text-field
                 :label="$t('user.lastname')"
-                v-model="lastName"
-                :error-messages="errors.lastName"
+                v-model="surname"
+                :error-messages="errors.surname"
               />
               <v-text-field
                 :label="$t('user.ssn')"
                 v-model="ssn"
                 :error-messages="errors.ssn"
               />
-              <v-text-field
-                :label="$t('user.username')"
-                v-model="username"
-                :error-messages="errors.username"
-              />
 
-              <v-btn color="primary" v-t="'migration.migrate'" />
+              <v-btn color="primary" @click="migrate">
+                {{ $t('migration.migrate') }}
+              </v-btn>
             </v-form>
           </v-card-text>
         </v-card>
@@ -44,24 +41,22 @@
   </v-container>
 </template>
 <script>
-import axios from 'axios'
+import axios from '@/axios'
 import { mapState } from 'vuex'
 
 export default {
   data: () => ({
+    password: '',
     email: '',
     name: '',
     ssn: '',
-    firstName: '',
-    lastName: '',
+    surname: '',
     username: '',
     errors: {
       email: [],
       name: [],
       ssn: [],
-      firstName: [],
-      lastName: [],
-      username: []
+      surname: []
     }
   }),
   computed: {
@@ -70,18 +65,67 @@ export default {
     ])
   },
   created () {
+    this.username = this.migrationData.username
+    this.password = this.migrationData.password
+
     this.migrate()
   },
   methods: {
+    resetErrors () {
+      this.errors = {
+        email: [],
+        name: [],
+        ssn: [],
+        surname: [],
+        username: []
+      }
+    },
     async migrate () {
-      if (!this.migrationData.username || !this.migrationData.password) {
+      this.resetErrors()
+
+      if (!this.username || !this.password) {
         this.$router.push('/login')
+        return
       }
 
-      const res = await axios.post('/api/migrate', this.migrationData)
+      try {
+        await axios.post('/api/migrate', {
+          username: this.username,
+          password: this.password,
+          email: this.email,
+          ssn: this.ssn,
+          surname: this.surname,
+          name: this.name
+        })
 
-      console.log('Trying to migrate')
-      console.dir(res)
+        this.$store.dispatch('displaySuccessMessage', this.$t('migration.success'))
+        this.$router.push('/login')
+      } catch (e) {
+        switch (e.response.status) {
+          case 404:
+            this.$router.push('/login')
+            this.$store.dispatch('displayError', this.$t('login.invalid'))
+            break
+          case 422:
+            e.response.data.errors.forEach(({ validation, field }) => {
+              this.errors[field].push(this.$t(`register.${validation}.${field}`))
+            })
+
+            const legacyUser = e.response.data.legacyUser
+            this.email = legacyUser.email || this.email
+            this.username = legacyUser.username || this.username
+            this.name = legacyUser.name || this.name
+            this.ssn = legacyUser.ssn || this.ssn
+            this.surname = legacyUser.surname || this.surname
+            break
+          case 500:
+            this.$store.dispatch('displayError', this.$t('migration.alreadyMigrated'))
+            this.$router.push('/login')
+            break
+          default:
+            console.dir(e)
+        }
+      }
     }
   }
 }

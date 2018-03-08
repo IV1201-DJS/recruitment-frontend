@@ -127,7 +127,7 @@ export default new Vuex.Store({
       // Remove the current snackbar
       state.snackbar = {
         visible: true,
-        timeout: 30000,
+        timeout: 6000,
         message: '',
         color: '',
         top: false,

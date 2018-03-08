@@ -18,7 +18,9 @@ export default {
     mustUpdate: 'Your account is missing critical information.',
     title: 'Account migration',
     migrate: 'Migrate',
-    oldUserText: 'Old user?'
+    oldUserText: 'Old user?',
+    success: 'Your account has been migrated',
+    alreadyMigrated: 'Your account has already been migrated'
   },
   register: {
     back: 'Back',
@@ -30,7 +32,9 @@ export default {
       username: 'The username is required',
       password: 'The password is required',
       password_confirm: 'The password again is required',
+      name: 'The first name is required',
       firstname: 'The first name is required',
+      surname: 'The last name is required',
       lastname: 'The last name is required',
       email: 'The email is required',
       ssn: 'The ssn is required'
