@@ -112,5 +112,8 @@ export default {
     APPLICATION_STATUS_ALREADY_SET: 'Någon har redan uppdaterat den här applikationen',
     COMPETENCE_PARAMETERS_INVALID: 'Du har inte angett någon kompetens',
     AVAILABILITY_PARAMETERS_INVALID: 'Du har inte angett någon tillgänglighet'
+  },
+  restore: {
+    success: 'Ett mail har skickats till: '
   }
 }

@@ -109,5 +109,8 @@ export default {
     APPLICATION_STATUS_ALREADY_SET: 'Someone has already updated the status for this application',
     COMPETENCE_PARAMETERS_INVALID: 'You need at least one competence',
     AVAILABILITY_PARAMETERS_INVALID: 'You need at least one availability'
+  },
+  restore: {
+    success: 'An email has been sent to: '
   }
 }

@@ -214,6 +214,15 @@ export default new Vuex.Store({
         }
       }
     },
+    async restorePassword ( {commit, dispatch}, userEmail) {
+      try {
+        const response = await axios.post('/api/restore-password', userEmail)
+        dispatch('displaySuccessMessage', i18n.t('restore.success') + response.data.emailed) 
+      } catch (e) {
+          const { status, data } = e.response
+          dispatch('displayError', data) 
+      }
+    },
     /**
      * Displays an error message to the user in the form of a snackbar.
      *
