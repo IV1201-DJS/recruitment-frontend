@@ -27,12 +27,23 @@
                 @keyup.enter="login"
               />
 
-              <v-btn color="primary" @click="login" :loading="loginLoading" :disabled="loginDisabled" id="loginButton">
-                <span v-t="'login.title'" />
+              <v-btn color="primary"
+                     @click="login"
+                     :loading="loginLoading"
+                     :disabled="loginDisabled"
+                     id="loginButton">
+                {{ $t('login.title') }}
               </v-btn>
 
               <v-btn color="success" :to="{ name: 'Register' }">
                 {{ $t('login.register') }}
+              </v-btn>
+
+              <v-btn color="primary"
+                     @click="login"
+                     :to="{ name: 'AccountMigration' }"
+                     v-if="!migrationDisabled">
+                {{ $t('migration.oldUserText') }}
               </v-btn>
             </v-form>
           </v-card-text>
@@ -48,6 +59,7 @@ export default {
   data: () => ({
     loginDisabled: true,
     loginLoading: false,
+    migrationDisabled: true,
     e1: true,
     username: '',
     password: '',
@@ -114,15 +126,15 @@ export default {
           username: this.username,
           password: this.password
         })
+
+        this.migrationDisabled = false
+        this.$store.commit('updateMigrationData', {
+          username: this.username,
+          password: this.password
+        })
       } catch (e) {
-        if (e === 409) {
-          this.$router.push('/migrate')
-
-          return
-        }
-
-        this.resetUsernameFieldErrors()
-        this.resetPasswordFieldErrors()
+        // this.resetUsernameFieldErrors()
+        // this.resetPasswordFieldErrors()
 
         e.forEach(({ validation, field }) => {
           this.errors[field].push(this.$t(`login.${validation}.${field}`))

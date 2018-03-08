@@ -10,27 +10,27 @@
           <v-card-text>
             <v-form>
               <v-text-field
-                :label="emailLocale"
+                :label="$t('user.email')"
                 v-model="email"
                 :error-messages="errors.email"
               />
               <v-text-field
-                :label="firstNameLocale"
+                :label="$t('user.firstname')"
                 v-model="firstName"
                 :error-messages="errors.firstName"
               />
               <v-text-field
-                :label="lastNameLocale"
+                :label="$t('user.lastname')"
                 v-model="lastName"
                 :error-messages="errors.lastName"
               />
               <v-text-field
-                :label="ssnLocale"
+                :label="$t('user.ssn')"
                 v-model="ssn"
                 :error-messages="errors.ssn"
               />
               <v-text-field
-                :label="usernameLocale"
+                :label="$t('user.username')"
                 v-model="username"
                 :error-messages="errors.username"
               />
@@ -44,6 +44,9 @@
   </v-container>
 </template>
 <script>
+import axios from 'axios'
+import { mapState } from 'vuex'
+
 export default {
   data: () => ({
     email: '',
@@ -61,20 +64,25 @@ export default {
       username: []
     }
   }),
+  computed: {
+    ...mapState([
+      'migrationData'
+    ])
+  },
   created () {
-    const legacyUser = this.$store.state.legacyUser
-    // The there is no data -> redirect to login page
-    if (!legacyUser) {
-      this.$router.push('/login')
+    this.migrate()
+  },
+  methods: {
+    async migrate () {
+      if (!this.migrationData.username || !this.migrationData.password) {
+        this.$router.push('/login')
+      }
 
-      return
+      const res = await axios.post('/api/migrate', this.migrationData)
+
+      console.log('Trying to migrate')
+      console.dir(res)
     }
-
-    this.email = legacyUser.email
-    this.firstName = legacyUser.name
-    this.lastName = legacyUser.surname
-    this.ssn = legacyUser.ssn
-    this.username = legacyUser.username
   }
 }
 </script>

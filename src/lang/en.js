@@ -17,7 +17,8 @@ export default {
   migration: {
     mustUpdate: 'Your account is missing critical information.',
     title: 'Account migration',
-    migrate: 'Migrate'
+    migrate: 'Migrate',
+    oldUserText: 'Old user?'
   },
   register: {
     back: 'Back',
