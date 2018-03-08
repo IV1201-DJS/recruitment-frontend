@@ -17,7 +17,10 @@ export default {
   migration: {
     mustUpdate: 'Ditt konto saknar kritisk information.',
     title: 'Kontomigration',
-    migrate: 'Migrera'
+    migrate: 'Migrera',
+    oldUserText: 'Gammal användare?',
+    success: 'Ditt konto har migrerat',
+    alreadyMigrated: 'Ditt konto har redan migrerats'
   },
   register: {
     back: 'Tillbaka',
@@ -29,7 +32,9 @@ export default {
       username: 'Du måste ange ett användarnamn',
       password: 'Du måste ange ett lösenord',
       password_confirm: 'Du måste ange lösenordet igen',
+      name: 'Du måste ange ett förnamn',
       firstname: 'Du måste ange ett förnamn',
+      surname: 'Du måste ange ett efternamn',
       lastname: 'Du måste ange ett efternamn',
       email: 'Du måste ange en e-postadress',
       ssn: 'Du måste ange ett personnummer'

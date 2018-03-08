@@ -1,9 +1,9 @@
 // @ts-check
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
 
 import i18n from './lang/i18n'
+import axios from './axios'
 
 Vue.use(Vuex)
 
@@ -19,9 +19,22 @@ export default new Vuex.Store({
     competences: [],
     role: {
       id: -1
+    },
+    migrationData: {
+      username: '',
+      password: ''
     }
   },
   mutations: {
+    /**
+     * Saves migration data to the store.
+     *
+     * @param {*} state
+     * @param {*} migrationData
+     */
+    updateMigrationData (state, migrationData) {
+      state.migrationData = migrationData
+    },
     /**
      * Updates the role of the current user.
      *
@@ -114,7 +127,7 @@ export default new Vuex.Store({
       // Remove the current snackbar
       state.snackbar = {
         visible: true,
-        timeout: 30000,
+        timeout: 6000,
         message: '',
         color: '',
         top: false,
