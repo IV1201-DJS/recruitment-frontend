@@ -9,7 +9,7 @@
         <div class="headline mr-3">{{ $t('userApplication.status') }}:</div>
 
         <v-select
-          :items="ApplicationStatuses"
+          :items="AllApplicationStatuses"
           item-text="name"
           item-value="id"
           v-model="currentStatus"
@@ -36,7 +36,6 @@ export default {
   data: () => ({
     Application: {},
     AllApplicationStatuses: [],
-    ApplicationStatuses: [],
     currentStatus: -1
   }),
   computed: {
@@ -51,7 +50,7 @@ export default {
     AllApplicationStatuses (newApplicationStatus) {
       this.ApplicationStatuses = newApplicationStatus.map(status => ({
         id: status.id,
-        name: this.translateStatus(status.name)
+        name: status.name
       }))
     },
     Application (newApplication) {
@@ -66,11 +65,6 @@ export default {
     }
   },
   methods: {
-    translateStatus (name) {
-      if (name === 'ACCEPTED') return this.$t('status.ACCEPTED')
-      else if (name === 'DECLINED') return this.$t('status.DECLINED')
-      else return 'INVALID'
-    },
     createPdf () {
       const doc = new JsPDF({
         unit: 'cm'
