@@ -1,8 +1,10 @@
 module.exports = {
   'Register Successful Test' : function (client) {
     client
+      .resizeWindow(1200, 980)
       .url('http://0.0.0.0:8080/register')
       .useXpath()
+      .waitForElementVisible("//div[@class='toolbar__title'][string() = 'Account registration']", 1000)
       .assert.elementPresent("//div[@class='toolbar__title'][string() = 'Account registration']", 'Asserting Title "Account registration" present')
       .useCss()
       .assert.visible('input[type=text][aria-label="First name"]', 'Asserting if First name input field is visible')
@@ -21,22 +23,24 @@ module.exports = {
       .setValue('input[type=password][aria-label="Password confirmation"]', 'password')
       .click("div.card__text button")
       .useXpath()
-      .pause(1000)
-      .assert.elementPresent('//div[@class="snack__content"][string()="Your account has been created!"]', 'Asserting Success message is present')
+      .waitForElementVisible('//div[@class="snack__content"][string()="Your account has been created!"]', 1000)
+      .assert.elementPresent('//div[@class="snack__content"][string()="Your account has been created!"]', 'Asserting account creation message')
       .useCss()
       .setValue('input[type=text][aria-label=Username]', 'username')
       .setValue('input[type=password][aria-label=Password]', 'password')
       .click("div.card__text button")
       .useXpath()
-      .pause(3000)
-      .assert.elementPresent('//div[@class="snack__content"][string() = "Welcome!"]', 'Asserting Success message is present')
+      .waitForElementVisible('//div[@class="snack__content"][string() = "Welcome!"]', 1000)
+      .assert.elementPresent('//div[@class="snack__content"][string() = "Welcome!"]', 'Asserting success message is present')
       .end()
   },
 
   'Register Unavailable Test' : function (client) {
     client
+      .resizeWindow(1200, 980)
       .url('http://0.0.0.0:8080/register')
       .useXpath()
+      .waitForElementVisible("//div[@class='toolbar__title'][string() = 'Account registration']", 1000)
       .assert.elementPresent("//div[@class='toolbar__title'][string() = 'Account registration']", 'Asserting Title "Account registration" present')
       .useCss()
       .assert.visible('input[type=text][aria-label="First name"]', 'Asserting if First name input field is visible')
