@@ -124,7 +124,6 @@ export default new Vuex.Store({
      * @param {*} update
      */
     updateSnackbar (state, update) {
-      // Remove the current snackbar
       state.snackbar = {
         visible: true,
         timeout: 6000,
@@ -139,6 +138,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    /**
+     * Updates the store's state for the provided competence.
+     * 
+     * @param {any} { commit }
+     * @param {Object} competence
+     * @param {String} competence.id
+     * @param {Number} competence.experience_years
+     */
     updateCompetenceExperience ({ commit }, competence) {
       if (!competence) return
 
@@ -227,6 +234,12 @@ export default new Vuex.Store({
         }
       }
     },
+    /**
+     * Sends a restore password request to the backend for the provided email.
+     * 
+     * @param {*} param0 
+     * @param {*} userEmail 
+     */
     async restorePassword ({commit, dispatch}, userEmail) {
       try {
         const response = await axios.post('/api/restore-password', userEmail)
